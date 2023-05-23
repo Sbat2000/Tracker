@@ -9,13 +9,19 @@
 /* Begin PBXBuildFile section */
 		E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187CFD2A18F8F4004191C8 /* AppDelegate.swift */; };
 		E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187CFF2A18F8F4004191C8 /* SceneDelegate.swift */; };
-		E2187D022A18F8F4004191C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D012A18F8F4004191C8 /* ViewController.swift */; };
-		E2187D052A18F8F4004191C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2187D032A18F8F4004191C8 /* Main.storyboard */; };
+		E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D012A18F8F4004191C8 /* TrackersViewController.swift */; };
 		E2187D072A18F8F5004191C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2187D062A18F8F5004191C8 /* Assets.xcassets */; };
 		E2187D0A2A18F8F5004191C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2187D082A18F8F5004191C8 /* LaunchScreen.storyboard */; };
 		E2187D152A18F8F5004191C8 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D142A18F8F5004191C8 /* TrackerTests.swift */; };
 		E2187D1F2A18F8F5004191C8 /* TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D1E2A18F8F5004191C8 /* TrackerUITests.swift */; };
 		E2187D212A18F8F5004191C8 /* TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D202A18F8F5004191C8 /* TrackerUITestsLaunchTests.swift */; };
+		E2187D2E2A18FFDF004191C8 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D2D2A18FFDF004191C8 /* StatsViewController.swift */; };
+		E2187DED2A1C6667004191C8 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DEC2A1C6667004191C8 /* ReuseIdentifierProtocol.swift */; };
+		E2187DEF2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DEE2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift */; };
+		E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF12A1C6C3B004191C8 /* LaunchScreenViewController.swift */; };
+		E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */; };
+		E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF72A1C6D9F004191C8 /* Resources.swift */; };
+		E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DFA2A1CB855004191C8 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +45,7 @@
 		E2187CFA2A18F8F4004191C8 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2187CFD2A18F8F4004191C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2187CFF2A18F8F4004191C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E2187D012A18F8F4004191C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E2187D042A18F8F4004191C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E2187D012A18F8F4004191C8 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
 		E2187D062A18F8F5004191C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2187D092A18F8F5004191C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2187D0B2A18F8F5004191C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +54,13 @@
 		E2187D1A2A18F8F5004191C8 /* TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2187D1E2A18F8F5004191C8 /* TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerUITests.swift; sourceTree = "<group>"; };
 		E2187D202A18F8F5004191C8 /* TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E2187D2D2A18FFDF004191C8 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		E2187DEC2A1C6667004191C8 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		E2187DEE2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Ext.swift"; sourceTree = "<group>"; };
+		E2187DF12A1C6C3B004191C8 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
+		E2187DF72A1C6D9F004191C8 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		E2187DFA2A1CB855004191C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +111,16 @@
 		E2187CFC2A18F8F4004191C8 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				E2187DF92A1CB361004191C8 /* Trackers */,
+				E2187DF02A1C6B55004191C8 /* LaunchScreen */,
 				E2187CFD2A18F8F4004191C8 /* AppDelegate.swift */,
 				E2187CFF2A18F8F4004191C8 /* SceneDelegate.swift */,
-				E2187D012A18F8F4004191C8 /* ViewController.swift */,
-				E2187D032A18F8F4004191C8 /* Main.storyboard */,
+				E2187D2D2A18FFDF004191C8 /* StatsViewController.swift */,
+				E2187DF52A1C6D71004191C8 /* Helpers */,
 				E2187D062A18F8F5004191C8 /* Assets.xcassets */,
 				E2187D082A18F8F5004191C8 /* LaunchScreen.storyboard */,
 				E2187D0B2A18F8F5004191C8 /* Info.plist */,
+				E2187DFA2A1CB855004191C8 /* TabBarController.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -125,6 +140,41 @@
 				E2187D202A18F8F5004191C8 /* TrackerUITestsLaunchTests.swift */,
 			);
 			path = TrackerUITests;
+			sourceTree = "<group>";
+		};
+		E2187DEB2A1C6621004191C8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E2187DEC2A1C6667004191C8 /* ReuseIdentifierProtocol.swift */,
+				E2187DEE2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift */,
+				E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E2187DF02A1C6B55004191C8 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E2187DF12A1C6C3B004191C8 /* LaunchScreenViewController.swift */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		E2187DF52A1C6D71004191C8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E2187DEB2A1C6621004191C8 /* Extension */,
+				E2187DF72A1C6D9F004191C8 /* Resources.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E2187DF92A1CB361004191C8 /* Trackers */ = {
+			isa = PBXGroup;
+			children = (
+				E2187D012A18F8F4004191C8 /* TrackersViewController.swift */,
+			);
+			path = Trackers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +283,6 @@
 			files = (
 				E2187D0A2A18F8F5004191C8 /* LaunchScreen.storyboard in Resources */,
 				E2187D072A18F8F5004191C8 /* Assets.xcassets in Resources */,
-				E2187D052A18F8F4004191C8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +307,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2187D022A18F8F4004191C8 /* ViewController.swift in Sources */,
+				E2187DEF2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift in Sources */,
+				E2187DED2A1C6667004191C8 /* ReuseIdentifierProtocol.swift in Sources */,
+				E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */,
+				E2187D2E2A18FFDF004191C8 /* StatsViewController.swift in Sources */,
 				E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */,
 				E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */,
+				E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */,
+				E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */,
+				E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */,
+				E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +353,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E2187D032A18F8F4004191C8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E2187D042A18F8F4004191C8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E2187D082A18F8F5004191C8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,7 +490,6 @@
 				INFOPLIST_FILE = Tracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +520,6 @@
 				INFOPLIST_FILE = Tracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
