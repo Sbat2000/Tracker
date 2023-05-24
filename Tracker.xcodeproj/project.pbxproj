@@ -22,6 +22,9 @@
 		E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */; };
 		E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF72A1C6D9F004191C8 /* Resources.swift */; };
 		E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DFA2A1CB855004191C8 /* TabBarController.swift */; };
+		E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805B2A1DAA780000475E /* TrackersPresenter.swift */; };
+		E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */; };
+		E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		E2187DF72A1C6D9F004191C8 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		E2187DFA2A1CB855004191C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E295805B2A1DAA780000475E /* TrackersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenter.swift; sourceTree = "<group>"; };
+		E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenterProtocol.swift; sourceTree = "<group>"; };
+		E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				E2187D012A18F8F4004191C8 /* TrackersViewController.swift */,
+				E295805B2A1DAA780000475E /* TrackersPresenter.swift */,
+				E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */,
+				E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */,
 			);
 			path = Trackers;
 			sourceTree = "<group>";
@@ -316,7 +325,10 @@
 				E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */,
 				E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */,
 				E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */,
+				E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */,
+				E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */,
 				E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */,
+				E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
