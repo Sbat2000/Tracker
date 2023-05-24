@@ -25,6 +25,10 @@
 		E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805B2A1DAA780000475E /* TrackersPresenter.swift */; };
 		E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */; };
 		E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */; };
+		E29580622A1DBD000000475E /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580612A1DBD000000475E /* SectionHeaderView.swift */; };
+		E29580642A1DC1330000475E /* UICollectionReusableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580632A1DC1330000475E /* UICollectionReusableView + Ext.swift */; };
+		E29580662A1E2ED10000475E /* RoundedButtonClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580652A1E2ED10000475E /* RoundedButtonClass.swift */; };
+		E29580682A1E396F0000475E /* RoundedLabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580672A1E396F0000475E /* RoundedLabelClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,10 @@
 		E295805B2A1DAA780000475E /* TrackersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenter.swift; sourceTree = "<group>"; };
 		E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenterProtocol.swift; sourceTree = "<group>"; };
 		E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCollectionViewCell.swift; sourceTree = "<group>"; };
+		E29580612A1DBD000000475E /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		E29580632A1DC1330000475E /* UICollectionReusableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + Ext.swift"; sourceTree = "<group>"; };
+		E29580652A1E2ED10000475E /* RoundedButtonClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonClass.swift; sourceTree = "<group>"; };
+		E29580672A1E396F0000475E /* RoundedLabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabelClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +161,9 @@
 			children = (
 				E2187DEC2A1C6667004191C8 /* ReuseIdentifierProtocol.swift */,
 				E2187DEE2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift */,
+				E29580632A1DC1330000475E /* UICollectionReusableView + Ext.swift */,
 				E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */,
+				E29580672A1E396F0000475E /* RoundedLabelClass.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -171,6 +181,7 @@
 			children = (
 				E2187DEB2A1C6621004191C8 /* Extension */,
 				E2187DF72A1C6D9F004191C8 /* Resources.swift */,
+				E29580652A1E2ED10000475E /* RoundedButtonClass.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -182,6 +193,7 @@
 				E295805B2A1DAA780000475E /* TrackersPresenter.swift */,
 				E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */,
 				E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */,
+				E29580612A1DBD000000475E /* SectionHeaderView.swift */,
 			);
 			path = Trackers;
 			sourceTree = "<group>";
@@ -317,14 +329,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2187DEF2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift in Sources */,
+				E29580642A1DC1330000475E /* UICollectionReusableView + Ext.swift in Sources */,
 				E2187DED2A1C6667004191C8 /* ReuseIdentifierProtocol.swift in Sources */,
 				E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */,
+				E29580682A1E396F0000475E /* RoundedLabelClass.swift in Sources */,
 				E2187D2E2A18FFDF004191C8 /* StatsViewController.swift in Sources */,
 				E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */,
+				E29580662A1E2ED10000475E /* RoundedButtonClass.swift in Sources */,
 				E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */,
 				E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */,
 				E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */,
 				E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */,
+				E29580622A1DBD000000475E /* SectionHeaderView.swift in Sources */,
 				E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */,
 				E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */,
 				E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */,
