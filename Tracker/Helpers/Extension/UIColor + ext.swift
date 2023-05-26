@@ -19,4 +19,12 @@ extension UIColor {
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
+    
+    static let blackDay         = UIColor(hexString: "#1A1B22")
+    static let whiteDay         = UIColor(hexString: "#FFFFFF")
+    static let lightGray        = UIColor(hexString: "#E6E8EB")
+    static let ypGray           = UIColor(hexString: "#AEAFB4")  
+    static let ypRed            = UIColor(hexString: "#F56B6C")
+    static let backgroundDay    = UIColor(hexString: "#E6E8EB").withAlphaComponent(0.3)
+    
 }

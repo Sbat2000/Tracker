@@ -62,6 +62,6 @@ final class TabBarController: UITabBarController {
     
     @objc
     private func leftButtonTapped() {
-        print("Left button tapped!")
+        present(SelectTypeTrackerViewController(), animated: true)
     }
 }

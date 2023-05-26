@@ -8,6 +8,30 @@ final class TrackersViewController: UIViewController {
                          "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄",
                          "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄"]
     
+    
+    private lazy var trackersHome: [Tracker] = [
+        Tracker(id: 0, name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule: nil),
+        Tracker(id: 1, name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: nil),
+        Tracker(id: 2, name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: nil),
+        
+    ]
+    
+    private lazy var anotherTrackers: [Tracker] = [
+        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
+        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
+        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
+        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
+        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
+        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
+    ]
+    
+    private lazy var categories = [
+        TrackerCategory(header: "Домашние дела", trackers: trackersHome),
+        TrackerCategory(header: "Другое", trackers: anotherTrackers)
+    ]
+    
+    
+    
     private lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Поиск"
@@ -21,11 +45,11 @@ final class TrackersViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-
+        
         setupUI()
         setupCell()
         setupLayout()
@@ -56,20 +80,33 @@ final class TrackersViewController: UIViewController {
         trackersCollectionView.dataSource = self
         trackersCollectionView.register(TrackersCollectionViewCell.self, forCellWithReuseIdentifier: TrackersCollectionViewCell.reuseIdentifier)
         trackersCollectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.reuseIdentifier)
-
+    }
+    
+    private func setupUICell(_ cell: TrackersCollectionViewCell, withTracker tracker: Tracker) {
+        cell.emojiLabel.text = tracker.emoji
+        cell.trackerTextLabel.text = tracker.name
+        cell.colorView.backgroundColor = tracker.color
+        cell.trackerCompleteButton.backgroundColor = tracker.color
         
     }
 }
 
 extension TrackersViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        categories.count
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        arrayOfEmoji.count
+        categories[section].trackers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCollectionViewCell.reuseIdentifier, for: indexPath) as? TrackersCollectionViewCell
-        cell?.emojiLabel.text = arrayOfEmoji[indexPath.row]
-        return cell!
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCollectionViewCell.reuseIdentifier, for: indexPath) as! TrackersCollectionViewCell
+        let tracker = categories[indexPath.section].trackers[indexPath.item]
+        setupUICell(cell, withTracker: tracker)
+        return cell
         
     }
 }
@@ -91,12 +128,13 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
         
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.reuseIdentifier, for: indexPath) as! SectionHeaderView
-            headerView.titleLabel.text = "HEADER!"
+            let category = categories[indexPath.section]
+            headerView.titleLabel.text = category.header
             return headerView
             
         }
         return UICollectionReusableView()
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

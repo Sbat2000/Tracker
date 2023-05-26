@@ -13,9 +13,15 @@ final class RoundedButton: UIButton {
         didSet {
             if toggled {
                 let image = UIImage(systemName: "checkmark")
+                UIView.animate(withDuration: 0.3) {
+                    self.backgroundColor = self.backgroundColor?.withAlphaComponent(0.3)
+                }
                 setImage(image, for: .normal)
             } else {
                 let image = UIImage(systemName: "plus")
+                UIView.animate(withDuration: 0.3) {
+                    self.backgroundColor = self.backgroundColor?.withAlphaComponent(1.0)
+                }
                 setImage(image, for: .normal)
             }
         }

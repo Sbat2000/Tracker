@@ -29,7 +29,7 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
     let trackerTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "SF Pro", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = Resources.Colors.ypWhite
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -40,7 +40,6 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
     
     let trackerCompleteButton: UIButton = {
         let button = RoundedButton(type: .system)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = Resources.Colors.Sections.colorSection2
         let image = UIImage(systemName: "plus")
@@ -49,14 +48,19 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    let counterTextLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.text = "1 день"
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCellUI()
         setupLayout()
-        print("ContentViewHeight: \(contentView.bounds.height)")
-        print("colorViewHeight: \(colorView.frame.height)")
-        print(trackerCompleteButton.bounds.size)
-        print(trackerCompleteButton.bounds.size)
     }
     
     private func setupCellUI() {
@@ -64,6 +68,7 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(emojiLabel)
         contentView.addSubview(trackerTextLabel)
         contentView.addSubview(trackerCompleteButton)
+        contentView.addSubview(counterTextLabel)
         
     }
     
@@ -85,14 +90,13 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
             trackerTextLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 44),
             trackerTextLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: -12),
             
-            //trackerCompleteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 121),
             trackerCompleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             trackerCompleteButton.topAnchor.constraint(equalTo: colorView.bottomAnchor, constant: 8),
             trackerCompleteButton.heightAnchor.constraint(equalToConstant: 34),
-            trackerCompleteButton.widthAnchor.constraint(equalToConstant: 34)
-            //trackerCompleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            trackerCompleteButton.widthAnchor.constraint(equalToConstant: 34),
             
-            
+            counterTextLabel.leadingAnchor.constraint(equalTo: emojiLabel.leadingAnchor),
+            counterTextLabel.centerYAnchor.constraint(equalTo: trackerCompleteButton.centerYAnchor)
         ])
     }
     
