@@ -9,27 +9,30 @@ import UIKit
 
 final class CategoryCell: UITableViewCell {
     
-    let label = UILabel()
+    let headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupLayout()
-        
     }
     
     private func setupUI() {
         backgroundColor = .backgroundDay
-        addSubview(label)
+        addSubview(headerLabel)
     }
     
     private func setupLayout() {
-        label.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
         
     }

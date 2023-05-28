@@ -4,27 +4,26 @@ import UIKit
 
 final class TrackersViewController: UIViewController {
     
-    let arrayOfEmoji = [ "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄",
-                         "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄",
-                         "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄"]
-    
-    
     private let trackerCreateService = TrackerCreateService.shared
+    private var currentDate = Date()
+    private var day = 1
+    private var query: String = ""
+    var datePicker: UIDatePicker?
     
     private lazy var trackersHome: [Tracker] = [
-        Tracker(id: 0, name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule: nil),
-        Tracker(id: 1, name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: nil),
-        Tracker(id: 2, name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: nil),
+        Tracker(name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule:  []),
+        Tracker(name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: []),
+        Tracker(name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: []),
         
     ]
     
     private lazy var anotherTrackers: [Tracker] = [
-        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
-        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
-        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
-        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
-        Tracker(id: 2, name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: nil),
-        Tracker(id: 2, name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: nil),
+        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
+        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
+        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
     ]
     
     private lazy var categories = [
@@ -33,12 +32,30 @@ final class TrackersViewController: UIViewController {
     ]
     
     
+    private lazy var visibleCategories = [TrackerCategory]()
+    
     
     private lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Поиск"
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         return searchTextField
+    }()
+    
+    private lazy var placeholder: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = .placeHolder
+        return image
+    }()
+    
+    let label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .blackDay
+        label.text = "Что будем отслеживать?"
+        return label
     }()
     
     private lazy var trackersCollectionView: UICollectionView = {
@@ -50,17 +67,22 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialDay()
         trackerCreateService.delegate = self
+        searchTextField.delegate = self
+        query = searchTextField.text ?? ""
         view.backgroundColor = .systemBackground
-        
         setupUI()
         setupCell()
         setupLayout()
-        // Do any additional setup after loading the view.
+        setupDatePicker()
+        updateVisibleCategories(categories)
     }
     
     private func setupUI() {
         view.addSubview(searchTextField)
+        view.addSubview(placeholder)
+        view.addSubview(label)
         view.addSubview(trackersCollectionView)
     }
     
@@ -74,7 +96,14 @@ final class TrackersViewController: UIViewController {
             trackersCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 10),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             trackersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            placeholder.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            placeholder.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: placeholder.bottomAnchor, constant: 8)
+            
         ])
     }
     
@@ -99,22 +128,73 @@ final class TrackersViewController: UIViewController {
             dismissAllModalControllers(from: presentedViewController)
         }
     }
+    
+    private func setupDatePicker() {
+        datePicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        datePicker?.calendar = calendar
+    }
+    
+    @objc
+    private func dateChanged(_ sender: UIDatePicker) {
+        currentDate = sender.date
+        let calendar = Calendar.current
+        let weekday: Int = {
+            let day = calendar.component(.weekday, from: currentDate) - 1
+            if day == 0 { return 7 }
+            return day
+        }()
+        day = weekday
+        filtered()
+    }
+    
+    private func initialDay() {
+        let calendar = Calendar.current
+        let weekday: Int = {
+            let day = calendar.component(.weekday, from: currentDate) - 1
+            if day == 0 { return 7 }
+            return day
+        }()
+        day = weekday
+        filtered()
+    }
+    
+    private func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
+        visibleCategories = newCategory
+        trackersCollectionView.reloadData()
+        placeholder.image = .notFound
+        label.text = "Ничего не найдено"
+        updateCollectionViewVisibility()
+    }
+    
+    
+    private func updateCollectionViewVisibility() {
+        let hasData = !visibleCategories.isEmpty
+        trackersCollectionView.isHidden = !hasData
+        placeholder.isHidden = hasData
+    }
+    
+    func presentSelectTypeVC() {
+        let selectTypeVC = SelectTypeTrackerViewController()
+        present(selectTypeVC, animated: true)
+    }
 }
 
 extension TrackersViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        categories.count
+        visibleCategories.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        categories[section].trackers.count
+        visibleCategories[section].trackers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCollectionViewCell.reuseIdentifier, for: indexPath) as! TrackersCollectionViewCell
-        let tracker = categories[indexPath.section].trackers[indexPath.item]
+        let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
         setupUICell(cell, withTracker: tracker)
         return cell
     }
@@ -137,7 +217,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
         
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.reuseIdentifier, for: indexPath) as! SectionHeaderView
-            let category = categories[indexPath.section]
+            let category = visibleCategories[indexPath.section]
             headerView.titleLabel.text = category.header
             return headerView
             
@@ -158,12 +238,156 @@ extension TrackersViewController: TrackerCreateServiceDelegate {
             let array  = categories[index].trackers + trackersCategory.trackers
             let trackerCategory = TrackerCategory(header: header, trackers: array)
             categories[index] = trackerCategory
-            trackersCollectionView.reloadData()
+            updateVisibleCategories(categories)
+            filtered()
             dismissAllModalControllers(from: self)
         } else  {
             categories.append(trackersCategory)
-            trackersCollectionView.reloadData()
+            updateVisibleCategories(categories)
+            filtered()
             dismissAllModalControllers(from: self)
         }
-    }  
+    }
+}
+
+
+//MARK: - UITextFieldDelegate
+extension TrackersViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let queryTextFiled = textField.text else { return }
+        query = queryTextFiled
+        filtered()
+        
+        //        var filteredCategories = [TrackerCategory]()
+        //
+        //        if query.isEmpty {
+        //            filteredCategories = categories
+        //        } else {
+        //            for category in visibleCategories {
+        //                var trackers = [Tracker]()
+        //                for tracker in category.trackers {
+        //                    let trackerName = tracker.name.lowercased()
+        //                    if trackerName.range(of: query, options: .caseInsensitive) != nil {
+        //                        trackers.append(tracker)
+        //                    }
+        //                }
+        //                if !trackers.isEmpty {
+        //                    let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
+        //                    filteredCategories.append(trackerCategory)
+        //                }
+        //            }
+        //        }
+        //        print("Категории внутри фильтра \(filteredCategories)")
+        //
+        //        updateVisibleCategories(filteredCategories)
+    }
+    
+    //    private func filteredTrackers() {
+    //        visibleCategories = categories
+    //            .filter { query.isEmpty ? true : $0.header.range(of: query, options: .caseInsensitive)}
+    //            .map { category in
+    //                let trackers = category.trackers.filter { $0.schedule?.contains(currentDate) }
+    //                return TrackerCategory(header: category.header, trackers: trackers)
+    //            }
+    //
+    //    }
+}
+
+
+//MARK: - Filters cells
+
+extension TrackersViewController {
+    
+    private func filteredTrackers(_ day: Int) {
+        var filteredCategories = [TrackerCategory]()
+        
+        for category in categories {
+            var trackers = [Tracker]()
+            for tracker in category.trackers {
+                let schedule = tracker.schedule
+                if schedule.contains(day) {
+                    trackers.append(tracker)
+                } else if schedule.isEmpty {
+                    trackers.append(tracker)
+                }
+                
+            }
+            if !trackers.isEmpty {
+                let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
+                filteredCategories.append(trackerCategory)
+            }
+        }
+        print("Категории внутри фильтра \(filteredCategories)")
+        updateVisibleCategories(filteredCategories)
+        
+    }
+    
+    private func filteredTrackersForText(_ query: String) {
+        var filteredCategories = [TrackerCategory]()
+        
+        if query.isEmpty {
+            filteredCategories = categories
+        } else {
+            for category in visibleCategories {
+                var trackers = [Tracker]()
+                for tracker in category.trackers {
+                    let trackerName = tracker.name.lowercased()
+                    if trackerName.range(of: query, options: .caseInsensitive) != nil {
+                        trackers.append(tracker)
+                    }
+                }
+                if !trackers.isEmpty {
+                    let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
+                    filteredCategories.append(trackerCategory)
+                }
+            }
+        }
+        print("Категории внутри фильтра \(filteredCategories)")
+        
+        updateVisibleCategories(filteredCategories)
+    }
+    
+    private func filtered() {
+        var filteredCategories = [TrackerCategory]()
+        
+        for category in categories {
+            var trackers = [Tracker]()
+            for tracker in category.trackers {
+                let schedule = tracker.schedule
+                if schedule.contains(day) {
+                    trackers.append(tracker)
+                } else if schedule.isEmpty {
+                    trackers.append(tracker)
+                }
+                
+            }
+            if !trackers.isEmpty {
+                let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
+                filteredCategories.append(trackerCategory)
+            }
+        }
+        
+        if !query.isEmpty {
+            var trackersWithFilteredName = [TrackerCategory]()
+            for category in filteredCategories {
+                var trackers = [Tracker]()
+                for tracker in category.trackers {
+                    let trackerName = tracker.name.lowercased()
+                    if trackerName.range(of: query, options: .caseInsensitive) != nil {
+                        trackers.append(tracker)
+                    }
+                }
+                if !trackers.isEmpty {
+                    let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
+                    trackersWithFilteredName.append(trackerCategory)
+                }
+            }
+            filteredCategories = trackersWithFilteredName
+            
+        }
+        print("Категории внутри фильтра \(filteredCategories)")
+        
+        updateVisibleCategories(filteredCategories)
+        
+    }
 }

@@ -3,8 +3,32 @@ import UIKit
 
 final class CreateCell: UITableViewCell {
     
-    let label = UILabel()
+    lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 17)
+        return label
+    }()
     
+    lazy var subLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 17)
+        label.textColor = .ypGray
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -14,22 +38,20 @@ final class CreateCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .backgroundDay
-        addSubview(label)
+        stackView.addArrangedSubview(headerLabel)
+        stackView.addArrangedSubview(subLabel)
+        addSubview(stackView)
     }
     
     private func setupLayout() {
-        label.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
         
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

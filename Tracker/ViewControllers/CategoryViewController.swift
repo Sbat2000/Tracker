@@ -12,6 +12,7 @@ final class CategoryViewController: UIViewController {
     private let categoryArray = ["Важное", "Веселье"]
     private var selectedIndexPath: IndexPath?
     private let trackerCreateService = TrackerCreateService.shared
+    weak var delegate: CategoryViewControllerDelegate?
     
     
     private lazy var headerLabel: UILabel = {
@@ -131,7 +132,7 @@ extension CategoryViewController: UITableViewDataSource {
             cell.accessoryType = .none
         }
         cell.selectionStyle = .none
-        cell.label.text = categoryArray[indexPath.row]
+        cell.headerLabel.text = categoryArray[indexPath.row]
         setupCornerRadiusCell(for: cell, indexPath: indexPath)
         return cell
     }
@@ -141,6 +142,7 @@ extension CategoryViewController: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let category = categoryArray[indexPath.row]
         trackerCreateService.setCategory(category: category)
+        delegate?.didSelectCategory(category)
         tableView.reloadData()
     }
     

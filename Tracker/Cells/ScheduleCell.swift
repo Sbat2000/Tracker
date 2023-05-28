@@ -9,7 +9,31 @@ import UIKit
 
 final class ScheduleCell: UITableViewCell {
     
-    let label = UILabel()
+    lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 17)
+        return label
+    }()
+    
+    lazy var subLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 17)
+        label.textColor = .ypGray
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 2
+        return stackView
+    }()
+    
     weak var delegate: ScheduleCellDelegate?
     
     lazy var switchControl:UISwitch = {
@@ -29,16 +53,18 @@ final class ScheduleCell: UITableViewCell {
     private func setupUI() {
         backgroundColor = .backgroundDay
         contentView.addSubview(switchControl)
-        addSubview(label)
+        stackView.addArrangedSubview(headerLabel)
+        stackView.addArrangedSubview(subLabel)
+        addSubview(stackView)
     }
     
     private func setupLayout() {
-        label.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         switchControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             switchControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             switchControl.centerYAnchor.constraint(equalTo: centerYAnchor)

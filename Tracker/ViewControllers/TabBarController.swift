@@ -39,6 +39,7 @@ final class TabBarController: UITabBarController {
             datePicker.datePickerMode = .date
             let datePickerItem = UIBarButtonItem(customView: datePicker)
             rootViewController.navigationItem.rightBarButtonItem = datePickerItem
+            self.trackersViewController?.datePicker = datePicker
             
 
         }
@@ -63,8 +64,7 @@ final class TabBarController: UITabBarController {
     
     @objc
     private func leftButtonTapped() {
-        let selectTypeTrackerViewController = SelectTypeTrackerViewController()
-        present(SelectTypeTrackerViewController(), animated: true)
+        trackersViewController?.presentSelectTypeVC()
     }
     
     func showOnlyTrackersViewController() {

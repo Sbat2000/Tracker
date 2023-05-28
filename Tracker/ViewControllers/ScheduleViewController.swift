@@ -10,7 +10,9 @@ import UIKit
 final class ScheduleViewController: UIViewController {
     
     private let dayArray = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    private var selectedDays = [String]()
+    
+
+    weak var delegate: ScheduleViewControllerDelegate?
     private let trackerCreateService = TrackerCreateService.shared
     
     private lazy var headerLabel: UILabel = {
@@ -121,27 +123,30 @@ extension ScheduleViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier, for: indexPath) as! ScheduleCell
         cell.delegate = self
         setupCornerRadiusCell(for: cell, indexPath: indexPath)
-        cell.label.text = dayArray[indexPath.row]
-        if let day = cell.label.text {
+        cell.headerLabel.text = dayArray[indexPath.row]
+        let day = indexPath.row + 1
             if trackerCreateService.scheduleContains(day) {
                 cell.switchControl.isOn = true
             }
-        }
         return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-}
+
 
 extension ScheduleViewController: ScheduleCellDelegate {
     func scheduleCell(_ cell: ScheduleCell, didChangeSwitchValue isOn: Bool) {
-        guard let day = cell.label.text else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let day = indexPath.row + 1
         if isOn {
             trackerCreateService.addDay(day: day)
+            delegate?.scheduleChanged()
         } else {
             trackerCreateService.removeDay(day: day)
-        }
+            delegate?.scheduleChanged()
+        }     
     }
 }

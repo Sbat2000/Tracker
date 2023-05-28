@@ -20,19 +20,20 @@ final class SelectTypeTrackerViewController: UIViewController {
     let habitButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(presentCreateViewController), for: .touchUpInside)
+        button.addTarget(self, action: #selector(habitButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 16
         button.backgroundColor = .blackDay
         button.setTitle("Привычка", for: .normal)
         return button
     }()
     
-    let irregularButton: UIButton = {
+    let eventButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
         button.backgroundColor = .blackDay
         button.setTitle("Нерегулярные событие", for: .normal)
+        button.addTarget(self, action: #selector(eventButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -47,12 +48,19 @@ final class SelectTypeTrackerViewController: UIViewController {
         view.backgroundColor = .whiteDay
         view.addSubview(headerLabel)
         view.addSubview(habitButton)
-        view.addSubview(irregularButton)
+        view.addSubview(eventButton)
     }
     
     @objc
-    private func presentCreateViewController() {
-        present(CreateTrackerViewController(), animated: true)
+    private func habitButtonPressed() {
+        let vc = CreateTrackerViewController(type: .habits)
+        present(vc, animated: true)
+    }
+    
+    @objc
+    private func eventButtonPressed() {
+        let vc = CreateTrackerViewController(type: .event)
+        present(vc, animated: true)
     }
     
     private func setupLayout() {
@@ -67,10 +75,10 @@ final class SelectTypeTrackerViewController: UIViewController {
             habitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             habitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            irregularButton.topAnchor.constraint(equalTo: habitButton.bottomAnchor, constant: 16),
-            irregularButton.leadingAnchor.constraint(equalTo: habitButton.leadingAnchor),
-            irregularButton.trailingAnchor.constraint(equalTo: habitButton.trailingAnchor),
-            irregularButton.heightAnchor.constraint(equalTo: habitButton.heightAnchor)
+            eventButton.topAnchor.constraint(equalTo: habitButton.bottomAnchor, constant: 16),
+            eventButton.leadingAnchor.constraint(equalTo: habitButton.leadingAnchor),
+            eventButton.trailingAnchor.constraint(equalTo: habitButton.trailingAnchor),
+            eventButton.heightAnchor.constraint(equalTo: habitButton.heightAnchor)
             
             
         ])
