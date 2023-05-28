@@ -257,96 +257,14 @@ extension TrackersViewController: UITextFieldDelegate {
         guard let queryTextFiled = textField.text else { return }
         query = queryTextFiled
         filtered()
-        
-        //        var filteredCategories = [TrackerCategory]()
-        //
-        //        if query.isEmpty {
-        //            filteredCategories = categories
-        //        } else {
-        //            for category in visibleCategories {
-        //                var trackers = [Tracker]()
-        //                for tracker in category.trackers {
-        //                    let trackerName = tracker.name.lowercased()
-        //                    if trackerName.range(of: query, options: .caseInsensitive) != nil {
-        //                        trackers.append(tracker)
-        //                    }
-        //                }
-        //                if !trackers.isEmpty {
-        //                    let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
-        //                    filteredCategories.append(trackerCategory)
-        //                }
-        //            }
-        //        }
-        //        print("Категории внутри фильтра \(filteredCategories)")
-        //
-        //        updateVisibleCategories(filteredCategories)
     }
-    
-    //    private func filteredTrackers() {
-    //        visibleCategories = categories
-    //            .filter { query.isEmpty ? true : $0.header.range(of: query, options: .caseInsensitive)}
-    //            .map { category in
-    //                let trackers = category.trackers.filter { $0.schedule?.contains(currentDate) }
-    //                return TrackerCategory(header: category.header, trackers: trackers)
-    //            }
-    //
-    //    }
 }
 
 
 //MARK: - Filters cells
 
 extension TrackersViewController {
-    
-    private func filteredTrackers(_ day: Int) {
-        var filteredCategories = [TrackerCategory]()
-        
-        for category in categories {
-            var trackers = [Tracker]()
-            for tracker in category.trackers {
-                let schedule = tracker.schedule
-                if schedule.contains(day) {
-                    trackers.append(tracker)
-                } else if schedule.isEmpty {
-                    trackers.append(tracker)
-                }
-                
-            }
-            if !trackers.isEmpty {
-                let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
-                filteredCategories.append(trackerCategory)
-            }
-        }
-        print("Категории внутри фильтра \(filteredCategories)")
-        updateVisibleCategories(filteredCategories)
-        
-    }
-    
-    private func filteredTrackersForText(_ query: String) {
-        var filteredCategories = [TrackerCategory]()
-        
-        if query.isEmpty {
-            filteredCategories = categories
-        } else {
-            for category in visibleCategories {
-                var trackers = [Tracker]()
-                for tracker in category.trackers {
-                    let trackerName = tracker.name.lowercased()
-                    if trackerName.range(of: query, options: .caseInsensitive) != nil {
-                        trackers.append(tracker)
-                    }
-                }
-                if !trackers.isEmpty {
-                    let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
-                    filteredCategories.append(trackerCategory)
-                }
-            }
-        }
-        print("Категории внутри фильтра \(filteredCategories)")
-        
-        updateVisibleCategories(filteredCategories)
-    }
-    
+
     private func filtered() {
         var filteredCategories = [TrackerCategory]()
         
@@ -386,8 +304,6 @@ extension TrackersViewController {
             
         }
         print("Категории внутри фильтра \(filteredCategories)")
-        
         updateVisibleCategories(filteredCategories)
-        
     }
 }
