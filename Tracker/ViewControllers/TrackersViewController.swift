@@ -9,6 +9,8 @@ final class TrackersViewController: UIViewController {
                          "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄"]
     
     
+    private let trackerCreateService = TrackerCreateService.shared
+    
     private lazy var trackersHome: [Tracker] = [
         Tracker(id: 0, name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule: nil),
         Tracker(id: 1, name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: nil),
@@ -27,7 +29,7 @@ final class TrackersViewController: UIViewController {
     
     private lazy var categories = [
         TrackerCategory(header: "Домашние дела", trackers: trackersHome),
-        TrackerCategory(header: "Другое", trackers: anotherTrackers)
+        TrackerCategory(header: "Важное", trackers: anotherTrackers)
     ]
     
     
@@ -48,6 +50,7 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        trackerCreateService.delegate = self
         view.backgroundColor = .systemBackground
         
         setupUI()
@@ -89,6 +92,13 @@ final class TrackersViewController: UIViewController {
         cell.trackerCompleteButton.backgroundColor = tracker.color
         
     }
+    
+    private func dismissAllModalControllers(from viewController: UIViewController) {
+        if let presentedViewController = viewController.presentedViewController {
+            viewController.dismiss(animated: true, completion: nil)
+            dismissAllModalControllers(from: presentedViewController)
+        }
+    }
 }
 
 extension TrackersViewController: UICollectionViewDataSource {
@@ -107,7 +117,6 @@ extension TrackersViewController: UICollectionViewDataSource {
         let tracker = categories[indexPath.section].trackers[indexPath.item]
         setupUICell(cell, withTracker: tracker)
         return cell
-        
     }
 }
 
@@ -142,3 +151,19 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension TrackersViewController: TrackerCreateServiceDelegate {
+    func addTrackers(trackersCategory: TrackerCategory) {
+        let header = trackersCategory.header
+        if let index = categories.firstIndex { $0.header == header} {
+            let array  = categories[index].trackers + trackersCategory.trackers
+            let trackerCategory = TrackerCategory(header: header, trackers: array)
+            categories[index] = trackerCategory
+            trackersCollectionView.reloadData()
+            dismissAllModalControllers(from: self)
+        } else  {
+            categories.append(trackersCategory)
+            trackersCollectionView.reloadData()
+            dismissAllModalControllers(from: self)
+        }
+    }  
+}

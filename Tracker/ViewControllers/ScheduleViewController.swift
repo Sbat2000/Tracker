@@ -9,7 +9,9 @@ import UIKit
 
 final class ScheduleViewController: UIViewController {
     
-    private let dayArray = ["Понедельник", "Вторинк", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+    private let dayArray = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+    private var selectedDays = [String]()
+    private let trackerCreateService = TrackerCreateService.shared
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
@@ -71,7 +73,7 @@ final class ScheduleViewController: UIViewController {
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
+            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 38),
             tableView.bottomAnchor.constraint(equalTo: readyButton.topAnchor, constant: -8)
             
         ])
@@ -93,7 +95,7 @@ final class ScheduleViewController: UIViewController {
     private func readyButtonPressed() {
         dismiss(animated: true)
     }
-
+    
 }
 
 extension ScheduleViewController: UITableViewDelegate {
@@ -117,15 +119,29 @@ extension ScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier, for: indexPath) as! ScheduleCell
+        cell.delegate = self
         setupCornerRadiusCell(for: cell, indexPath: indexPath)
         cell.label.text = dayArray[indexPath.row]
+        if let day = cell.label.text {
+            if trackerCreateService.scheduleContains(day) {
+                cell.switchControl.isOn = true
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    
+}
+
+extension ScheduleViewController: ScheduleCellDelegate {
+    func scheduleCell(_ cell: ScheduleCell, didChangeSwitchValue isOn: Bool) {
+        guard let day = cell.label.text else { return }
+        if isOn {
+            trackerCreateService.addDay(day: day)
+        } else {
+            trackerCreateService.removeDay(day: day)
+        }
+    }
 }

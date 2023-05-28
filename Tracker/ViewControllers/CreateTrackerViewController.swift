@@ -9,6 +9,8 @@ import UIKit
 
 final class CreateTrackerViewController: UIViewController {
     
+    private let trackerCreateService = TrackerCreateService.shared
+    
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +63,7 @@ final class CreateTrackerViewController: UIViewController {
         button.setImage(image, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(categoryButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -98,6 +101,7 @@ final class CreateTrackerViewController: UIViewController {
         button.setTitle("Создать", for: .normal)
         button.setTitleColor(.whiteDay
                              , for: .normal)
+        button.addTarget(self, action: #selector(createButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -144,8 +148,19 @@ final class CreateTrackerViewController: UIViewController {
     }
     
     @objc
+    private func createButtonPressed() {
+        let title = trackerHeaderTextField.text ?? "Не ввели название"
+        trackerCreateService.createTracker(title: title)
+    }
+    
+    @objc
     private func scheduleButtonPressed() {
         present(ScheduleViewController(), animated: true)
+    }
+    
+    @objc
+    private func categoryButtonPressed() {
+        present(CategoryViewController(), animated: true)
     }
     
     private func setupLayout() {

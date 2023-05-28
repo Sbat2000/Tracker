@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ScheduleCell: UITableViewCell {
+final class PlugCell: UITableViewCell {
     
     let label = UILabel()
     private lazy var switchControl:UISwitch = {

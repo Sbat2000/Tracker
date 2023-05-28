@@ -22,6 +22,13 @@
 		E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */; };
 		E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DF72A1C6D9F004191C8 /* Resources.swift */; };
 		E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187DFA2A1CB855004191C8 /* TabBarController.swift */; };
+		E285658B2A21D8210085A301 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658A2A21D8210085A301 /* CategoryViewController.swift */; };
+		E285658D2A21DAF00085A301 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658C2A21DAF00085A301 /* CategoryCell.swift */; };
+		E285658F2A21E1E90085A301 /* PlugCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658E2A21E1E90085A301 /* PlugCell.swift */; };
+		E28565912A21EF660085A301 /* TrackerCreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28565902A21EF660085A301 /* TrackerCreateService.swift */; };
+		E28565932A21F6740085A301 /* ScheduleCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28565922A21F6740085A301 /* ScheduleCellDelegate.swift */; };
+		E28565952A2207A30085A301 /* TrackerCreateSerivceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28565942A2207A30085A301 /* TrackerCreateSerivceDelegate.swift */; };
+		E28565982A230FE90085A301 /* CreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28565972A230FE90085A301 /* CreateCell.swift */; };
 		E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805B2A1DAA780000475E /* TrackersPresenter.swift */; };
 		E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */; };
 		E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */; };
@@ -77,6 +84,13 @@
 		E2187DF32A1C6D42004191C8 /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		E2187DF72A1C6D9F004191C8 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		E2187DFA2A1CB855004191C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E285658A2A21D8210085A301 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		E285658C2A21DAF00085A301 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		E285658E2A21E1E90085A301 /* PlugCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlugCell.swift; sourceTree = "<group>"; };
+		E28565902A21EF660085A301 /* TrackerCreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreateService.swift; sourceTree = "<group>"; };
+		E28565922A21F6740085A301 /* ScheduleCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCellDelegate.swift; sourceTree = "<group>"; };
+		E28565942A2207A30085A301 /* TrackerCreateSerivceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreateSerivceDelegate.swift; sourceTree = "<group>"; };
+		E28565972A230FE90085A301 /* CreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCell.swift; sourceTree = "<group>"; };
 		E295805B2A1DAA780000475E /* TrackersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenter.swift; sourceTree = "<group>"; };
 		E295805D2A1DAAAA0000475E /* TrackersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenterProtocol.swift; sourceTree = "<group>"; };
 		E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -143,6 +157,7 @@
 		E2187CFC2A18F8F4004191C8 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				E28565962A230F950085A301 /* Cells */,
 				E29580742A2054180000475E /* ViewControllers */,
 				E29580692A1F059B0000475E /* Models */,
 				E2187DF92A1CB361004191C8 /* Trackers */,
@@ -217,6 +232,17 @@
 			path = Trackers;
 			sourceTree = "<group>";
 		};
+		E28565962A230F950085A301 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E285658C2A21DAF00085A301 /* CategoryCell.swift */,
+				E295807B2A20BA360000475E /* ScheduleCell.swift */,
+				E285658E2A21E1E90085A301 /* PlugCell.swift */,
+				E28565972A230FE90085A301 /* CreateCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		E29580692A1F059B0000475E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,7 +262,10 @@
 				E29580722A204CB60000475E /* SelectTypeTrackerViewController.swift */,
 				E29580752A2055D40000475E /* CreateTrackerViewController.swift */,
 				E29580772A20B4B40000475E /* ScheduleViewController.swift */,
-				E295807B2A20BA360000475E /* ScheduleCell.swift */,
+				E285658A2A21D8210085A301 /* CategoryViewController.swift */,
+				E28565902A21EF660085A301 /* TrackerCreateService.swift */,
+				E28565922A21F6740085A301 /* ScheduleCellDelegate.swift */,
+				E28565942A2207A30085A301 /* TrackerCreateSerivceDelegate.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -374,26 +403,33 @@
 				E295807A2A20B98C0000475E /* UITableViewCell + Ext.swift in Sources */,
 				E2187DEF2A1C6B27004191C8 /* UICollectionViewCell + Ext.swift in Sources */,
 				E29580642A1DC1330000475E /* UICollectionReusableView + Ext.swift in Sources */,
+				E285658D2A21DAF00085A301 /* CategoryCell.swift in Sources */,
 				E2187DED2A1C6667004191C8 /* ReuseIdentifierProtocol.swift in Sources */,
 				E29580782A20B4B40000475E /* ScheduleViewController.swift in Sources */,
 				E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */,
 				E29580762A2055D40000475E /* CreateTrackerViewController.swift in Sources */,
 				E29580682A1E396F0000475E /* RoundedLabelClass.swift in Sources */,
 				E29580732A204CB60000475E /* SelectTypeTrackerViewController.swift in Sources */,
+				E28565912A21EF660085A301 /* TrackerCreateService.swift in Sources */,
 				E295806F2A1F08400000475E /* TrackerRecord.swift in Sources */,
 				E2187D2E2A18FFDF004191C8 /* StatsViewController.swift in Sources */,
+				E28565982A230FE90085A301 /* CreateCell.swift in Sources */,
+				E28565952A2207A30085A301 /* TrackerCreateSerivceDelegate.swift in Sources */,
 				E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */,
 				E29580662A1E2ED10000475E /* RoundedButtonClass.swift in Sources */,
 				E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */,
 				E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */,
 				E295806D2A1F07DD0000475E /* TrackerCategory.swift in Sources */,
+				E285658B2A21D8210085A301 /* CategoryViewController.swift in Sources */,
 				E295807C2A20BA360000475E /* ScheduleCell.swift in Sources */,
 				E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */,
 				E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */,
 				E295806B2A1F05A60000475E /* Tracker.swift in Sources */,
 				E29580622A1DBD000000475E /* SectionHeaderView.swift in Sources */,
 				E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */,
+				E28565932A21F6740085A301 /* ScheduleCellDelegate.swift in Sources */,
 				E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */,
+				E285658F2A21E1E90085A301 /* PlugCell.swift in Sources */,
 				E29580712A2049850000475E /* TrackerSchedule.swift in Sources */,
 				E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */,
 				E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */,

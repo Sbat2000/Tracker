@@ -9,14 +9,14 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     
+    private var trackersViewController: TrackersViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         UITabBar.appearance().barTintColor = .systemBackground
         tabBar.tintColor = Resources.Colors.ypBlue
         setupVCs()
-        
-        
     }
     
     private func createNavControllers(for rootViewController: UIViewController,
@@ -54,6 +54,7 @@ final class TabBarController: UITabBarController {
         
         let trackersViewController = TrackersViewController()
         let statsViewController = StatsViewController()
+        self.trackersViewController = trackersViewController
         viewControllers = [
             createNavControllers(for: trackersViewController, title: "Трекеры", image: Resources.Images.TrackersTabBarIcon!),
             createNavControllers(for: statsViewController, title: "Статистика", image: Resources.Images.StatsTabBarIcon!)
@@ -62,6 +63,15 @@ final class TabBarController: UITabBarController {
     
     @objc
     private func leftButtonTapped() {
+        let selectTypeTrackerViewController = SelectTypeTrackerViewController()
         present(SelectTypeTrackerViewController(), animated: true)
     }
+    
+    func showOnlyTrackersViewController() {
+         if let trackersViewController = self.trackersViewController {
+             let newViewControllers = [trackersViewController]
+             self.viewControllers = newViewControllers
+             self.selectedIndex = 0
+         }
+     }
 }

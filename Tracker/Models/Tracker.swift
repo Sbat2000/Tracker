@@ -12,5 +12,15 @@ struct Tracker {
     let name        :String
     let color       :UIColor
     let emoji       :String
-    let schedule    :TrackerSchedule?
+    let schedule    :[String]?
+}
+
+enum WeekDay: String, CaseIterable {
+    case monday = "Понедельник"
+    case tuesday = "Вторник"
+    case wednesday = "Среда"
+    case thursday = "Четверг"
+    case friday = "Пятница"
+    case saturday = "Суббота"
+    case sunday = "Воскресенье"
 }
