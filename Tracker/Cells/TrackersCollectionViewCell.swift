@@ -38,7 +38,7 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let trackerCompleteButton: UIButton = {
+    let trackerCompleteButton: RoundedButton = {
         let button = RoundedButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = Resources.Colors.Sections.colorSection2
@@ -103,4 +103,6 @@ final class TrackersCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
 }

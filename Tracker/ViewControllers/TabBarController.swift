@@ -64,6 +64,7 @@ final class TabBarController: UITabBarController {
     
     @objc
     private func leftButtonTapped() {
+//        trackersViewController?.searchTextField.endEditing(true)
         trackersViewController?.presentSelectTypeVC()
     }
     

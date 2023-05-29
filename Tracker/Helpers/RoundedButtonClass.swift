@@ -9,6 +9,7 @@ import UIKit
 
 final class RoundedButton: UIButton {
     
+    
     public var toggled: Bool = false {
         didSet {
             if toggled {
@@ -34,6 +35,7 @@ final class RoundedButton: UIButton {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         super.touchesBegan(touches, with: event)
         UIView.animate(withDuration: 0.3) {
             self.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -41,6 +43,7 @@ final class RoundedButton: UIButton {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+
         super.touchesEnded(touches, with: event)
         UIView.animate(withDuration: 0.3, animations:  {
             self.transform = .identity

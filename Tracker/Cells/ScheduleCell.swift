@@ -39,6 +39,7 @@ final class ScheduleCell: UITableViewCell {
     lazy var switchControl:UISwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = false
+        switchControl.onTintColor = .switchBlue
         switchControl.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         return switchControl
     }()

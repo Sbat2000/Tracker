@@ -6,9 +6,11 @@ final class TrackersViewController: UIViewController {
     
     private let trackerCreateService = TrackerCreateService.shared
     private var currentDate = Date()
+    private let todayDate = Date()
     private var day = 1
     private var query: String = ""
     var datePicker: UIDatePicker?
+    private var completedTrackers: Set<TrackerRecord> = []
     
     private lazy var trackersHome: [Tracker] = [
         Tracker(name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule:  []),
@@ -35,7 +37,7 @@ final class TrackersViewController: UIViewController {
     private lazy var visibleCategories = [TrackerCategory]()
     
     
-    private lazy var searchTextField: UISearchTextField = {
+    lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Поиск"
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +81,7 @@ final class TrackersViewController: UIViewController {
         updateVisibleCategories(categories)
     }
     
+    
     private func setupUI() {
         view.addSubview(searchTextField)
         view.addSubview(placeholder)
@@ -119,7 +122,28 @@ final class TrackersViewController: UIViewController {
         cell.trackerTextLabel.text = tracker.name
         cell.colorView.backgroundColor = tracker.color
         cell.trackerCompleteButton.backgroundColor = tracker.color
+        cell.trackerCompleteButton.addTarget(self, action: #selector(trackerCompleteButtonTapped(_:)), for: .touchUpInside)
+        let trackerRecord = createTrackerRecord(with: tracker.id)
+        print("Date: \(trackerRecord.date)")
+        print("TR: \(trackerRecord)")
+        let isCompleted = completedTrackers.contains(trackerRecord)
+        print("isCompleted: \(isCompleted)")
+        cell.counterTextLabel.text = setupCounterTextLabel(trackerID: trackerRecord.id)
         
+        if Date() < currentDate && !tracker.schedule.isEmpty {
+            cell.trackerCompleteButton.isUserInteractionEnabled = false
+        }
+        cell.trackerCompleteButton.toggled = isCompleted
+        
+    }
+    
+    private func createTrackerRecord(with id: UUID) -> TrackerRecord {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let date = dateFormatter.string(from: currentDate)
+        let trackerRecord = TrackerRecord(id: id, date: date)
+        return trackerRecord
     }
     
     private func dismissAllModalControllers(from viewController: UIViewController) {
@@ -147,6 +171,40 @@ final class TrackersViewController: UIViewController {
         }()
         day = weekday
         filtered()
+    }
+    
+    @objc
+    private func trackerCompleteButtonTapped(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? TrackersCollectionViewCell,
+              let indexPath = trackersCollectionView.indexPath(for: cell) else { return }
+        let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
+        guard currentDate < Date() || tracker.schedule.isEmpty else { return }
+        let trackerRecord = createTrackerRecord(with: tracker.id)
+        if completedTrackers.contains(trackerRecord) {
+            completedTrackers.remove(trackerRecord)
+        } else {
+            completedTrackers.insert(trackerRecord)
+        }
+        cell.counterTextLabel.text = setupCounterTextLabel(trackerID: tracker.id)
+        print("Нажата кнопка в \(tracker), completedTrackers содержит: \(completedTrackers)")
+        
+    }
+    
+    private func setupCounterTextLabel(trackerID: UUID) -> String {
+        let count = completedTrackers.filter { $0.id == trackerID }.count
+        let lastDigit = count % 10
+        var text: String
+        
+        switch lastDigit {
+            case 1:
+                text = "день"
+            case 2, 3, 4:
+                text = "дня"
+            default:
+                text = "дней"
+            }
+        
+        return("\(count) \(text)")
     }
     
     private func initialDay() {
@@ -177,6 +235,7 @@ final class TrackersViewController: UIViewController {
     
     func presentSelectTypeVC() {
         let selectTypeVC = SelectTypeTrackerViewController()
+        searchTextField.endEditing(true)
         present(selectTypeVC, animated: true)
     }
 }
@@ -203,9 +262,7 @@ extension TrackersViewController: UICollectionViewDataSource {
 extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (trackersCollectionView.bounds.width - 9) / 2
-        print("width CELL: \(width)")
         let height = width * 0.887
-        print("height CELL: \(height)")
         return CGSize(width: width, height: height)
     }
     
@@ -238,15 +295,12 @@ extension TrackersViewController: TrackerCreateServiceDelegate {
             let array  = categories[index].trackers + trackersCategory.trackers
             let trackerCategory = TrackerCategory(header: header, trackers: array)
             categories[index] = trackerCategory
-            updateVisibleCategories(categories)
-            filtered()
-            dismissAllModalControllers(from: self)
         } else  {
             categories.append(trackersCategory)
-            updateVisibleCategories(categories)
-            filtered()
-            dismissAllModalControllers(from: self)
         }
+        updateVisibleCategories(categories)
+        filtered()
+        dismissAllModalControllers(from: self)
     }
 }
 
@@ -264,7 +318,7 @@ extension TrackersViewController: UITextFieldDelegate {
 //MARK: - Filters cells
 
 extension TrackersViewController {
-
+    
     private func filtered() {
         var filteredCategories = [TrackerCategory]()
         
@@ -301,9 +355,7 @@ extension TrackersViewController {
                 }
             }
             filteredCategories = trackersWithFilteredName
-            
         }
-        print("Категории внутри фильтра \(filteredCategories)")
         updateVisibleCategories(filteredCategories)
     }
 }

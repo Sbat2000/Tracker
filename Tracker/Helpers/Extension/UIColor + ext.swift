@@ -27,6 +27,8 @@ extension UIColor {
     static let ypRed            = UIColor(hexString: "#F56B6C")
     static let backgroundDay    = UIColor(hexString: "#E6E8EB").withAlphaComponent(0.3)
     
+    static let switchBlue       = UIColor(hexString: "#3772E7")
+
     
     static let colorSection1 = UIColor(hexString: "#FD4C49")
     static let colorSection2 = UIColor(hexString: "#FF881E")
