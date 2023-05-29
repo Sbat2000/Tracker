@@ -20,17 +20,14 @@ final class TrackerCreateService {
     
     func setCategory(category: String) {
         self.category = category
-       // print(self.category)
     }
     
     func addDay(day: Int){
         schedule.append(day)
-       // print(schedule)
     }
     
     func removeDay(day: Int) {
         schedule.removeAll { $0 == day }
-        //print(schedule)
     }
     
     func scheduleContains(_ day: Int) -> Bool {

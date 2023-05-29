@@ -12,25 +12,25 @@ final class TrackersViewController: UIViewController {
     var datePicker: UIDatePicker?
     private var completedTrackers: Set<TrackerRecord> = []
     
-    private lazy var trackersHome: [Tracker] = [
-        Tracker(name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule:  []),
-        Tracker(name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: []),
-        Tracker(name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: []),
-        
-    ]
+//    private lazy var trackersHome: [Tracker] = [
+//        Tracker(name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule:  []),
+//        Tracker(name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: []),
+//        Tracker(name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: []),
+//
+//    ]
+//
+//    private lazy var anotherTrackers: [Tracker] = [
+//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
+//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
+//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
+//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
+//    ]
     
-    private lazy var anotherTrackers: [Tracker] = [
-        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-    ]
-    
-    private lazy var categories = [
-        TrackerCategory(header: "Домашние дела", trackers: trackersHome),
-        TrackerCategory(header: "Важное", trackers: anotherTrackers)
+    private lazy var categories: [TrackerCategory] = [
+//        TrackerCategory(header: "Домашние дела", trackers: trackersHome),
+//        TrackerCategory(header: "Важное", trackers: anotherTrackers)
     ]
     
     
@@ -79,6 +79,7 @@ final class TrackersViewController: UIViewController {
         setupLayout()
         setupDatePicker()
         updateVisibleCategories(categories)
+        
     }
     
     
@@ -124,10 +125,7 @@ final class TrackersViewController: UIViewController {
         cell.trackerCompleteButton.backgroundColor = tracker.color
         cell.trackerCompleteButton.addTarget(self, action: #selector(trackerCompleteButtonTapped(_:)), for: .touchUpInside)
         let trackerRecord = createTrackerRecord(with: tracker.id)
-        print("Date: \(trackerRecord.date)")
-        print("TR: \(trackerRecord)")
         let isCompleted = completedTrackers.contains(trackerRecord)
-        print("isCompleted: \(isCompleted)")
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: trackerRecord.id)
         
         if Date() < currentDate && !tracker.schedule.isEmpty {
@@ -186,8 +184,6 @@ final class TrackersViewController: UIViewController {
             completedTrackers.insert(trackerRecord)
         }
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: tracker.id)
-        print("Нажата кнопка в \(tracker), completedTrackers содержит: \(completedTrackers)")
-        
     }
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
