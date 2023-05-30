@@ -127,9 +127,10 @@ final class TrackersViewController: UIViewController {
         let trackerRecord = createTrackerRecord(with: tracker.id)
         let isCompleted = completedTrackers.contains(trackerRecord)
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: trackerRecord.id)
-        
         if Date() < currentDate && !tracker.schedule.isEmpty {
             cell.trackerCompleteButton.isUserInteractionEnabled = false
+        } else {
+            cell.trackerCompleteButton.isUserInteractionEnabled = true
         }
         cell.trackerCompleteButton.toggled = isCompleted
         
@@ -161,6 +162,7 @@ final class TrackersViewController: UIViewController {
     @objc
     private func dateChanged(_ sender: UIDatePicker) {
         currentDate = sender.date
+        print(currentDate)
         let calendar = Calendar.current
         let weekday: Int = {
             let day = calendar.component(.weekday, from: currentDate) - 1
@@ -190,17 +192,8 @@ final class TrackersViewController: UIViewController {
         let count = completedTrackers.filter { $0.id == trackerID }.count
         let lastDigit = count % 10
         var text: String
-        
-        switch lastDigit {
-            case 1:
-                text = "день"
-            case 2, 3, 4:
-                text = "дня"
-            default:
-                text = "дней"
-            }
-        
-        return("\(count) \(text)")
+        text = count.days()
+        return("\(text)")
     }
     
     private func initialDay() {
