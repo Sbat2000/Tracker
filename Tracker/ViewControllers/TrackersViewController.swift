@@ -41,7 +41,23 @@ final class TrackersViewController: UIViewController {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Поиск"
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.clearButtonMode = .never
         return searchTextField
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Отменить", for: .normal)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var searchContainerView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 5
+        return stackView
     }()
     
     private lazy var placeholder: UIImageView = {
@@ -82,9 +98,22 @@ final class TrackersViewController: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+    
+    private func setupSearchContainerView() {
+        searchContainerView.addArrangedSubview(searchTextField)
+        searchContainerView.addArrangedSubview(cancelButton)
+        cancelButton.isHidden = true
+    }
+    
     
     private func setupUI() {
-        view.addSubview(searchTextField)
+        setupSearchContainerView()
+        view.addSubview(searchContainerView)
         view.addSubview(placeholder)
         view.addSubview(label)
         view.addSubview(trackersCollectionView)
@@ -93,11 +122,14 @@ final class TrackersViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             
-            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
-            trackersCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 10),
+            cancelButton.trailingAnchor.constraint(equalTo: searchContainerView.trailingAnchor),
+            cancelButton.centerYAnchor.constraint(equalTo: searchContainerView.centerYAnchor),
+            
+            trackersCollectionView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 10),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             trackersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -162,7 +194,6 @@ final class TrackersViewController: UIViewController {
     @objc
     private func dateChanged(_ sender: UIDatePicker) {
         currentDate = sender.date
-        print(currentDate)
         let calendar = Calendar.current
         let weekday: Int = {
             let day = calendar.component(.weekday, from: currentDate) - 1
@@ -171,6 +202,13 @@ final class TrackersViewController: UIViewController {
         }()
         day = weekday
         filtered()
+        setupPlaceHolder()
+    }
+    
+    @objc
+    private func cancelButtonTapped() {
+        searchTextField.text = ""
+        searchTextField.resignFirstResponder()
     }
     
     @objc
@@ -210,9 +248,14 @@ final class TrackersViewController: UIViewController {
     private func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
         visibleCategories = newCategory
         trackersCollectionView.reloadData()
-        placeholder.image = .notFound
-        label.text = "Ничего не найдено"
         updateCollectionViewVisibility()
+    }
+    
+    private func setupPlaceHolder() {
+        if visibleCategories.isEmpty  {
+            placeholder.image = .notFound
+            label.text = "Ничего не найдено"
+        }
     }
     
     
@@ -300,6 +343,27 @@ extension TrackersViewController: UITextFieldDelegate {
         guard let queryTextFiled = textField.text else { return }
         query = queryTextFiled
         filtered()
+        setupPlaceHolder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3) {
+            self.cancelButton.isHidden = false
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3) {
+            self.cancelButton.isHidden = true
+            self.view.layoutIfNeeded()
+            
+        }
+        if categories.isEmpty {
+            placeholder.image = .placeHolder
+            label.text = "Что будем отслеживать?"
+        }
+
     }
 }
 
