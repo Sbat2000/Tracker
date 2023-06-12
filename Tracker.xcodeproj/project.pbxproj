@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E214C4702A25C1BE00D59B75 /* Int + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214C46F2A25C1BE00D59B75 /* Int + Ext.swift */; };
+		E214C4A92A37054600D59B75 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214C4A82A37054600D59B75 /* EmojiCell.swift */; };
 		E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187CFD2A18F8F4004191C8 /* AppDelegate.swift */; };
 		E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187CFF2A18F8F4004191C8 /* SceneDelegate.swift */; };
 		E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2187D012A18F8F4004191C8 /* TrackersViewController.swift */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		E214C46F2A25C1BE00D59B75 /* Int + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Ext.swift"; sourceTree = "<group>"; };
+		E214C4A82A37054600D59B75 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
 		E2187CFA2A18F8F4004191C8 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2187CFD2A18F8F4004191C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2187CFF2A18F8F4004191C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				E285658E2A21E1E90085A301 /* PlaceholderCell.swift */,
 				E28565972A230FE90085A301 /* CreateCell.swift */,
 				E295805F2A1DAE9A0000475E /* TrackersCollectionViewCell.swift */,
+				E214C4A82A37054600D59B75 /* EmojiCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				E29580602A1DAE9A0000475E /* TrackersCollectionViewCell.swift in Sources */,
 				E285658F2A21E1E90085A301 /* PlaceholderCell.swift in Sources */,
 				E29580712A2049850000475E /* TrackerSchedule.swift in Sources */,
+				E214C4A92A37054600D59B75 /* EmojiCell.swift in Sources */,
 				E2187DF42A1C6D42004191C8 /* UIColor + ext.swift in Sources */,
 				E214C4702A25C1BE00D59B75 /* Int + Ext.swift in Sources */,
 				E295805E2A1DAAAA0000475E /* TrackersPresenterProtocol.swift in Sources */,

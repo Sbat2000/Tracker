@@ -13,6 +13,7 @@ final class CreateTrackerViewController: UIViewController {
     private var arrayOfButtons: [String] {
         return type.arrayOfButtons
     }
+    private var selectedEmojiIndexPatch: IndexPath?
     
     var type: `Type`
     
@@ -67,6 +68,15 @@ final class CreateTrackerViewController: UIViewController {
         return table
     }()
     
+    private lazy var emojiesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 14
+        layout.minimumInteritemSpacing = 25
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
@@ -107,7 +117,7 @@ final class CreateTrackerViewController: UIViewController {
         setupUI()
         setupLayout()
     }
-
+    
     private func setupBottomButtonsStack() {
         bottomButtonsStack.addArrangedSubview(cancelButton)
         bottomButtonsStack.addArrangedSubview(createButton)
@@ -120,8 +130,16 @@ final class CreateTrackerViewController: UIViewController {
         view.addSubview(headerLabel)
         view.addSubview(trackerHeaderTextField)
         view.addSubview(tableView)
+        setupEmojiesCollectionView()
+        view.addSubview(emojiesCollectionView)
         setupBottomButtonsStack()
         view.addSubview(bottomButtonsStack)
+    }
+    
+    private func setupEmojiesCollectionView() {
+        emojiesCollectionView.delegate = self
+        emojiesCollectionView.dataSource = self
+        emojiesCollectionView.register(EmojiCell.self, forCellWithReuseIdentifier: EmojiCell.reuseIdentifier)
     }
     
     private func setupCornerRadiusCell(for cell: CreateCell, indexPath: IndexPath) -> CreateCell {
@@ -175,7 +193,12 @@ final class CreateTrackerViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.topAnchor.constraint(equalTo: trackerHeaderTextField.bottomAnchor, constant: 38),
-            tableView.bottomAnchor.constraint(equalTo: bottomButtonsStack.topAnchor, constant: -8),
+            tableView.heightAnchor.constraint(equalToConstant: CGFloat(arrayOfButtons.count * 75)),
+            
+            emojiesCollectionView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            emojiesCollectionView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            emojiesCollectionView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 50),
+            emojiesCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(view.bounds.width * 0.545)),
             
             bottomButtonsStack.leadingAnchor.constraint(equalTo: trackerHeaderTextField.leadingAnchor),
             bottomButtonsStack.trailingAnchor.constraint(equalTo: trackerHeaderTextField.trailingAnchor),
@@ -227,5 +250,55 @@ extension CreateTrackerViewController: CategoryViewControllerDelegate {
 extension CreateTrackerViewController: ScheduleViewControllerDelegate {
     func scheduleChanged() {
         tableView.reloadData()
+    }
+}
+
+extension CreateTrackerViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        trackerCreateService.arrayOfEmoji.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCell.reuseIdentifier, for: indexPath) as! EmojiCell
+        cell.label.text = trackerCreateService.arrayOfEmoji[indexPath.row]
+        return cell
+    }
+}
+
+extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (emojiesCollectionView.bounds.width - 12.5 ) / 6
+        let height = width
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let selectedEmojiIndexPatch = selectedEmojiIndexPatch, let previousCell = collectionView.cellForItem(at: selectedEmojiIndexPatch) as? EmojiCell
+        {
+            previousCell.isSelected = false
+            previousCell.colorView.backgroundColor = .clear
+        }
+        
+        let cell = collectionView.cellForItem(at: indexPath) as? EmojiCell
+        cell?.isSelected = true
+        cell?.colorView.backgroundColor = .lightGray
+        if let emoji = cell?.label.text {
+            trackerCreateService.emoji = emoji
+        }
+        selectedEmojiIndexPatch = indexPath
+        print(cell?.label)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let selectedIndexPath = emojiesCollectionView.indexPathsForSelectedItems?.first {
+            emojiesCollectionView.deselectItem(at: selectedIndexPath, animated: false)
+            
+            
+        }
     }
 }

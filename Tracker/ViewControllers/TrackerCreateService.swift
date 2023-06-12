@@ -11,6 +11,10 @@ final class TrackerCreateService {
     
     static let shared = TrackerCreateService()
     weak var delegate: TrackerCreateServiceDelegate?
+    var emoji = "🙂"
+    
+    let arrayOfEmoji = ["🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
+    
     private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     
     private init() {}
@@ -40,7 +44,7 @@ final class TrackerCreateService {
             trackers: [Tracker(
                                name: title,
                                color: .colorSection1,
-                               emoji: "🐕",
+                               emoji: emoji,
                                schedule: schedule)])
         delegate?.addTrackers(trackersCategory: tracker)
         clean()
