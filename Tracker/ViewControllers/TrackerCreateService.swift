@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class TrackerCreateService {
     
@@ -14,6 +15,25 @@ final class TrackerCreateService {
     var emoji = "🙂"
     
     let arrayOfEmoji = ["🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
+    
+    let arrayOfColors: [UIColor] = [.colorSection1,
+                                    .colorSection2,
+                                    .colorSection3,
+                                    .colorSection4,
+                                    .colorSection5,
+                                    .colorSection6,
+                                    .colorSection7,
+                                    .colorSection8,
+                                    .colorSection9,
+                                    .colorSection10,
+                                    .colorSection11,
+                                    .colorSection12,
+                                    .colorSection13,
+                                    .colorSection14,
+                                    .colorSection15,
+                                    .colorSection16,
+                                    .colorSection17,
+                                    .colorSection18,]
     
     private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     
