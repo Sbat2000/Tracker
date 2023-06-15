@@ -9,9 +9,8 @@ import UIKit
 
 final class CategoryViewController: UIViewController {
     
-    private let categoryArray = ["Важное", "Веселье"]
+    private var categoryArray: [String] = []
     private var selectedIndexPath: IndexPath?
-    private let trackerCreateService = DataProvider.shared
     weak var delegate: CategoryViewControllerDelegate?
     
     
@@ -46,6 +45,7 @@ final class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoryArray = DataProvider.shared.getCategories()
         setupUI()
         setupLayout()
     }
@@ -140,10 +140,12 @@ extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         tableView.deselectRow(at: indexPath, animated: true)
-        let category = categoryArray[indexPath.row]
-        trackerCreateService.setCategory(category: category)
-        delegate?.didSelectCategory(category)
-        tableView.reloadData()
+        if  !categoryArray.isEmpty  {
+            let category = categoryArray[indexPath.row]
+            DataProvider.shared.setCategory(category: category)
+            delegate?.didSelectCategory(category)
+            tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

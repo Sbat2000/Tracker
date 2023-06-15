@@ -8,11 +8,8 @@
 import UIKit
 import CoreData
 
-final class TrackerStore: NSObject {
-    
-    static let shared = TrackerStore()
-    private override init() {  }
-    
+final class TrackerStore: NSObject, TrackerStoreProtocol {
+
     private let colorMarshaling = UIColorMarshalling()
     private let dataProvider = DataProvider.shared
     

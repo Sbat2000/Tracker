@@ -4,7 +4,6 @@ import UIKit
 
 final class TrackersViewController: UIViewController {
     
-    private let trackersStore = TrackerStore.shared
     private let dataProvider = DataProvider.shared
     private var currentDate = Date()
     private let todayDate = Date()
@@ -86,6 +85,7 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DataProvider.shared.setMainCategory()
         initialDay()
         dataProvider.delegate = self
         searchTextField.delegate = self
@@ -95,9 +95,9 @@ final class TrackersViewController: UIViewController {
         setupCell()
         setupLayout()
         setupDatePicker()
-        categories = trackersStore.fetchTrackers()
+        categories = dataProvider.getTrackers()
         updateVisibleCategories(categories)
-        
+         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

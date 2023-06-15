@@ -11,12 +11,12 @@ import UIKit
 
 final class DataProvider {
     
-    
-    private init() {}
-    
     static let shared = DataProvider()
     
-    private lazy var trackerStore = TrackerStore.shared
+    private lazy var trackerStore =  TrackerStore()
+    private lazy var trackerCategoryStore = TrackerCategoryStore()
+    
+    private init() { }
     
     weak var delegate: DataProviderDelegate?
     var emoji = "🙂"
@@ -52,7 +52,7 @@ final class DataProvider {
     
     
     func updateCategories() {
-        let category = trackerStore.fetchTrackers()
+    let category = trackerStore.fetchTrackers() 
         delegate?.updateVisibleCategories(category)
     }
     
@@ -73,13 +73,6 @@ final class DataProvider {
     }
  
     func createTracker(title: String) {
-//        let tracker = TrackerCategory(
-//            header: category,
-//            trackers: [Tracker(
-//                id: UUID(), name: title,
-//                               color: self.color,
-//                               emoji: emoji,
-//                               schedule: schedule)])
         let tracker = Tracker(id: UUID(),
                               name: title,
                               color: self.color,
@@ -88,6 +81,22 @@ final class DataProvider {
         //delegate?.addTrackers(trackersCategory: tracker)
         trackerStore.addTracker(model: tracker)
         clean()
+    }
+    
+    func addCategory(header: String) {
+        trackerCategoryStore.addCategory(header: header)
+    }
+    
+    func getTrackers() -> [TrackerCategory] {
+        trackerStore.fetchTrackers() ?? []
+    }
+    
+    func getCategories() -> [String] {
+        trackerCategoryStore.getCategories()
+    }
+    
+    func setMainCategory() {
+        trackerCategoryStore.setMainCategory()
     }
     
     func getFormattedSchedule() -> String? {
