@@ -11,7 +11,7 @@ final class CategoryViewController: UIViewController {
     
     private let categoryArray = ["Важное", "Веселье"]
     private var selectedIndexPath: IndexPath?
-    private let trackerCreateService = TrackerCreateService.shared
+    private let trackerCreateService = DataProvider.shared
     weak var delegate: CategoryViewControllerDelegate?
     
     

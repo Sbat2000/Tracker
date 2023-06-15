@@ -13,7 +13,7 @@ final class ScheduleViewController: UIViewController {
     
 
     weak var delegate: ScheduleViewControllerDelegate?
-    private let trackerCreateService = TrackerCreateService.shared
+    private let trackerCreateService = DataProvider.shared
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()

@@ -5,14 +5,27 @@
 //  Created by Aleksandr Garipov on 27.05.2023.
 //
 
-import Foundation
+
 import UIKit
 
-final class TrackerCreateService {
+
+final class DataProvider {
     
-    static let shared = TrackerCreateService()
-    weak var delegate: TrackerCreateServiceDelegate?
+    
+    private init() {}
+    
+    static let shared = DataProvider()
+    
+    private lazy var trackerStore = TrackerStore.shared
+    
+    weak var delegate: DataProviderDelegate?
     var emoji = "🙂"
+    var color: UIColor = .colorSection1
+    var category: String = "Важное"
+    private var schedule: [Int] = []
+    
+    private var visibleCategories: [TrackerCategory]?
+    private var completedTrackers: [TrackerRecord]?
     
     let arrayOfEmoji = ["🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
     
@@ -37,10 +50,11 @@ final class TrackerCreateService {
     
     private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     
-    private init() {}
     
-    var category: String = "Важное"
-    private var schedule: [Int] = []
+    func updateCategories() {
+        let category = trackerStore.fetchTrackers()
+        delegate?.updateVisibleCategories(category)
+    }
     
     func setCategory(category: String) {
         self.category = category
@@ -59,14 +73,20 @@ final class TrackerCreateService {
     }
  
     func createTracker(title: String) {
-        let tracker = TrackerCategory(
-            header: category,
-            trackers: [Tracker(
-                               name: title,
-                               color: .colorSection1,
-                               emoji: emoji,
-                               schedule: schedule)])
-        delegate?.addTrackers(trackersCategory: tracker)
+//        let tracker = TrackerCategory(
+//            header: category,
+//            trackers: [Tracker(
+//                id: UUID(), name: title,
+//                               color: self.color,
+//                               emoji: emoji,
+//                               schedule: schedule)])
+        let tracker = Tracker(id: UUID(),
+                              name: title,
+                              color: self.color,
+                              emoji: emoji,
+                              schedule: schedule)
+        //delegate?.addTrackers(trackersCategory: tracker)
+        trackerStore.addTracker(model: tracker)
         clean()
     }
     
@@ -81,7 +101,9 @@ final class TrackerCreateService {
     
     private func clean() {
         schedule = []
+        color = .colorSection1
+        emoji = "🙂"
     }
     
-    
+
 }

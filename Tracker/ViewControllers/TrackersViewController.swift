@@ -4,7 +4,8 @@ import UIKit
 
 final class TrackersViewController: UIViewController {
     
-    private let trackerCreateService = TrackerCreateService.shared
+    private let trackersStore = TrackerStore.shared
+    private let dataProvider = DataProvider.shared
     private var currentDate = Date()
     private let todayDate = Date()
     private var day = 1
@@ -86,7 +87,7 @@ final class TrackersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialDay()
-        trackerCreateService.delegate = self
+        dataProvider.delegate = self
         searchTextField.delegate = self
         query = searchTextField.text ?? ""
         view.backgroundColor = .systemBackground
@@ -94,6 +95,7 @@ final class TrackersViewController: UIViewController {
         setupCell()
         setupLayout()
         setupDatePicker()
+        categories = trackersStore.fetchTrackers()
         updateVisibleCategories(categories)
         
     }
@@ -245,7 +247,7 @@ final class TrackersViewController: UIViewController {
         filtered()
     }
     
-    private func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
+    internal func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
         visibleCategories = newCategory
         trackersCollectionView.reloadData()
         updateCollectionViewVisibility()
@@ -320,7 +322,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension TrackersViewController: TrackerCreateServiceDelegate {
+extension TrackersViewController: DataProviderDelegate {
     func addTrackers(trackersCategory: TrackerCategory) {
         let header = trackersCategory.header
         if let index = categories.firstIndex { $0.header == header} {

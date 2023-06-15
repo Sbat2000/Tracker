@@ -9,11 +9,12 @@ import UIKit
 
 final class CreateTrackerViewController: UIViewController {
     
-    private let trackerCreateService = TrackerCreateService.shared
+    private let dataProvider = DataProvider.shared
     private var arrayOfButtons: [String] {
         return type.arrayOfButtons
     }
     private var selectedEmojiIndexPatch: IndexPath?
+    private var selectedColorIndexPatch: IndexPath?
     
     var type: `Type`
     
@@ -215,7 +216,7 @@ final class CreateTrackerViewController: UIViewController {
     @objc
     private func createButtonPressed() {
         let title = trackerHeaderTextField.text ?? "Не ввели название"
-        trackerCreateService.createTracker(title: title)
+        dataProvider.createTracker(title: title)
     }
     
     private func scheduleButtonPressed() {
@@ -291,10 +292,10 @@ extension CreateTrackerViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: CreateCell.reuseIdentifier, for: indexPath) as! CreateCell
         cell.headerLabel.text = arrayOfButtons[indexPath.row]
         if indexPath.row == 0 {
-            cell.subLabel.text = trackerCreateService.category
+            cell.subLabel.text = dataProvider.category
         }
         if indexPath.row == 1 {
-            cell.subLabel.text = trackerCreateService.getFormattedSchedule()
+            cell.subLabel.text = dataProvider.getFormattedSchedule()
         }
         setupCornerRadiusCell(for: cell, indexPath: indexPath)
         cell.accessoryType = .disclosureIndicator
@@ -332,9 +333,9 @@ extension CreateTrackerViewController: ScheduleViewControllerDelegate {
 extension CreateTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == emojiesCollectionView {
-            return trackerCreateService.arrayOfEmoji.count
+            return dataProvider.arrayOfEmoji.count
         } else if collectionView == colorsCollectionView {
-            return trackerCreateService.arrayOfColors.count
+            return dataProvider.arrayOfColors.count
         }
         return 0
     }
@@ -342,11 +343,11 @@ extension CreateTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == emojiesCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCell.reuseIdentifier, for: indexPath) as! EmojiCell
-            cell.label.text = trackerCreateService.arrayOfEmoji[indexPath.row]
+            cell.label.text = dataProvider.arrayOfEmoji[indexPath.row]
             return cell
         } else if collectionView == colorsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorCell.reuseIdentifier, for: indexPath) as! ColorCell
-            cell.colorView.backgroundColor = trackerCreateService.arrayOfColors[indexPath.row]
+            cell.colorView.backgroundColor = dataProvider.arrayOfColors[indexPath.row]
             return cell
         }
         fatalError("Unknown collection view")
@@ -365,24 +366,38 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let selectedEmojiIndexPatch = selectedEmojiIndexPatch, let previousCell = collectionView.cellForItem(at: selectedEmojiIndexPatch) as? EmojiCell
-        {
-            previousCell.isSelected = false
-            previousCell.colorView.backgroundColor = .clear
+        if collectionView == emojiesCollectionView {
+            if let selectedEmojiIndexPatch = selectedEmojiIndexPatch, let previousCell = collectionView.cellForItem(at: selectedEmojiIndexPatch) as? EmojiCell
+            {
+                previousCell.isSelected = false
+                previousCell.colorView.backgroundColor = .clear
+            }
+            
+            let cell = collectionView.cellForItem(at: indexPath) as? EmojiCell
+            cell?.isSelected = true
+            cell?.colorView.backgroundColor = .lightGray
+            if let emoji = cell?.label.text {
+                dataProvider.emoji = emoji
+            }
+            selectedEmojiIndexPatch = indexPath
+            print(dataProvider.emoji)
+        } else if collectionView == colorsCollectionView {
+            if let selectedIndexPath = selectedColorIndexPatch, let previousCell = collectionView.cellForItem(at: selectedIndexPath) as? ColorCell
+            {
+                previousCell.isSelected = false
+            }
+            
+            let cell = collectionView.cellForItem(at: indexPath) as? ColorCell
+            cell?.isSelected = true
+            if let color = cell?.colorView.backgroundColor {
+                dataProvider.color = color
+            }
+            print(dataProvider.color)
         }
-        
-        let cell = collectionView.cellForItem(at: indexPath) as? EmojiCell
-        cell?.isSelected = true
-        cell?.colorView.backgroundColor = .lightGray
-        if let emoji = cell?.label.text {
-            trackerCreateService.emoji = emoji
-        }
-        selectedEmojiIndexPatch = indexPath
-        print(cell?.label)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
         if let selectedIndexPath = emojiesCollectionView.indexPathsForSelectedItems?.first {
             emojiesCollectionView.deselectItem(at: selectedIndexPath, animated: false)
         }

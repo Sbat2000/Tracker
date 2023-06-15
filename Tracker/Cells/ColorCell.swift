@@ -10,7 +10,7 @@ import UIKit
 
 final class ColorCell: UICollectionViewCell {
     
-
+    private var selectedBorderLayer: CALayer?
     
     lazy var colorView: UIView = {
         let view = UIView()
@@ -18,6 +18,26 @@ final class ColorCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                if selectedBorderLayer == nil {
+                    let borderLayer = CALayer()
+                    borderLayer.frame = bounds.insetBy(dx: 1.5, dy: 1.5)
+                    borderLayer.borderWidth = 3
+                    borderLayer.borderColor = colorView.backgroundColor?.cgColor
+                    borderLayer.opacity = 0.3
+                    borderLayer.cornerRadius = 12
+                    layer.addSublayer(borderLayer)
+                    selectedBorderLayer = borderLayer
+                }
+            } else {
+                selectedBorderLayer?.removeFromSuperlayer()
+                selectedBorderLayer = nil
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -36,10 +56,10 @@ final class ColorCell: UICollectionViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             
-            colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
     }
     
