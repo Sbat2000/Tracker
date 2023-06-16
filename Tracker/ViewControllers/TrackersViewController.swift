@@ -206,7 +206,6 @@ final class TrackersViewController: UIViewController {
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
         let count = completedTrackers.filter { $0.id == trackerID }.count
-        //let lastDigit = count % 10
         var text: String
         text = count.days()
         return("\(text)")

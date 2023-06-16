@@ -9,9 +9,7 @@ import UIKit
 import CoreData
 
 
-final class TrackerCategoryStore: NSObject, TrackerCategoryStoreProtocol {
-    let dataProvider = DataProvider.shared
-    
+final class TrackerCategoryStore: NSObject {
     private lazy var appDelegate = {
         UIApplication.shared.delegate as! AppDelegate
     }()
