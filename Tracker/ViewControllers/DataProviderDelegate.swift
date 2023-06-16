@@ -8,6 +8,6 @@
 import Foundation
 
 protocol DataProviderDelegate: AnyObject {
-    func addTrackers(trackersCategory: TrackerCategory)
-    func updateVisibleCategories(_ newCategory: [TrackerCategory])
+    func addTrackers()
+    func updateCategories(_ newCategory: [TrackerCategory])
 }

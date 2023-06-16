@@ -79,5 +79,7 @@ final class TrackerCategoryStore: NSObject, TrackerCategoryStoreProtocol {
 }
 
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
-    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        try? fetchedResultController.performFetch()
+    }
 }

@@ -52,8 +52,8 @@ final class DataProvider {
     
     
     func updateCategories() {
-    let category = trackerStore.fetchTrackers() 
-        delegate?.updateVisibleCategories(category)
+        let category = trackerStore.fetchTrackers()
+        delegate?.updateCategories(category)
     }
     
     func setCategory(category: String) {
@@ -78,8 +78,8 @@ final class DataProvider {
                               color: self.color,
                               emoji: emoji,
                               schedule: schedule)
-        //delegate?.addTrackers(trackersCategory: tracker)
         trackerStore.addTracker(model: tracker)
+        delegate?.addTrackers()
         clean()
     }
     

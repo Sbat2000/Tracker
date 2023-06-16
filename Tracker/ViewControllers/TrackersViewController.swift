@@ -11,29 +11,8 @@ final class TrackersViewController: UIViewController {
     private var query: String = ""
     var datePicker: UIDatePicker?
     private var completedTrackers: Set<TrackerRecord> = []
-    
-//    private lazy var trackersHome: [Tracker] = [
-//        Tracker(name: "Погулять с собакой", color: Resources.Colors.Sections.colorSection1, emoji: "🐕", schedule:  []),
-//        Tracker(name: "Пропылесосить", color: Resources.Colors.Sections.colorSection2, emoji: "🐷", schedule: []),
-//        Tracker(name: "Приготовить покушать", color: Resources.Colors.Sections.colorSection3, emoji: "🍒", schedule: []),
-//
-//    ]
-//
-//    private lazy var anotherTrackers: [Tracker] = [
-//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-//        Tracker(name: "Накоримить уток", color: Resources.Colors.Sections.colorSection4, emoji: "🐤", schedule: []),
-//        Tracker(name: "Найти жирафа", color: Resources.Colors.Sections.colorSection5, emoji: "🦒", schedule: []),
-//    ]
-    
-    private lazy var categories: [TrackerCategory] = [
-//        TrackerCategory(header: "Домашние дела", trackers: trackersHome),
-//        TrackerCategory(header: "Важное", trackers: anotherTrackers)
-    ]
-    
-    
+
+    private lazy var categories: [TrackerCategory] = []
     private lazy var visibleCategories = [TrackerCategory]()
     
     
@@ -86,6 +65,8 @@ final class TrackersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         DataProvider.shared.setMainCategory()
+        categories = dataProvider.getTrackers()
+        updateVisibleCategories(categories)
         initialDay()
         dataProvider.delegate = self
         searchTextField.delegate = self
@@ -95,9 +76,6 @@ final class TrackersViewController: UIViewController {
         setupCell()
         setupLayout()
         setupDatePicker()
-        categories = dataProvider.getTrackers()
-        updateVisibleCategories(categories)
-         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -123,7 +101,6 @@ final class TrackersViewController: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            
             searchContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             searchContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             searchContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -141,7 +118,6 @@ final class TrackersViewController: UIViewController {
             
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.topAnchor.constraint(equalTo: placeholder.bottomAnchor, constant: 8)
-            
         ])
     }
     
@@ -230,7 +206,7 @@ final class TrackersViewController: UIViewController {
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
         let count = completedTrackers.filter { $0.id == trackerID }.count
-        let lastDigit = count % 10
+        //let lastDigit = count % 10
         var text: String
         text = count.days()
         return("\(text)")
@@ -323,15 +299,13 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TrackersViewController: DataProviderDelegate {
-    func addTrackers(trackersCategory: TrackerCategory) {
-        let header = trackersCategory.header
-        if let index = categories.firstIndex { $0.header == header} {
-            let array  = categories[index].trackers + trackersCategory.trackers
-            let trackerCategory = TrackerCategory(header: header, trackers: array)
-            categories[index] = trackerCategory
-        } else  {
-            categories.append(trackersCategory)
-        }
+    func updateCategories(_ newCategory: [TrackerCategory]) {
+        categories = newCategory
+        updateVisibleCategories(categories)
+    }
+    
+    
+    func addTrackers() {
         updateVisibleCategories(categories)
         filtered()
         dismissAllModalControllers(from: self)

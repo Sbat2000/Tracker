@@ -85,7 +85,7 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
         tracker.color = color
         tracker.emoji = model.emoji
         tracker.name = model.name
-        tracker.schedule = model.schedule as? NSObject
+        tracker.schedule = model.schedule
         tracker.category = categoryCoreData
         
         appDelegate.saveContext()
@@ -103,6 +103,7 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
 //        guard let insertedIndexes = insertedIndexes,
 //              let deletedIndexes = deletedIndexes,
 //              let section = section else { return }
+        try? fetchedResultController.performFetch()
         dataProvider.updateCategories()
     }
 }
