@@ -15,7 +15,6 @@ final class TrackersViewController: UIViewController {
     private lazy var categories: [TrackerCategory] = []
     private lazy var visibleCategories = [TrackerCategory]()
     
-    
     lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
         searchTextField.placeholder = "Поиск"
@@ -83,14 +82,12 @@ final class TrackersViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
-    
-    
+        
     private func setupSearchContainerView() {
         searchContainerView.addArrangedSubview(searchTextField)
         searchContainerView.addArrangedSubview(cancelButton)
         cancelButton.isHidden = true
     }
-    
     
     private func setupUI() {
         setupSearchContainerView()
@@ -144,7 +141,6 @@ final class TrackersViewController: UIViewController {
             cell.trackerCompleteButton.isUserInteractionEnabled = true
         }
         cell.trackerCompleteButton.toggled = isCompleted
-        
     }
     
     private func createTrackerRecord(with id: UUID) -> TrackerRecord {
@@ -199,10 +195,8 @@ final class TrackersViewController: UIViewController {
         let trackerRecord = createTrackerRecord(with: tracker.id)
         if completedTrackers.contains(trackerRecord) {
             DataProvider.shared.deleteRecord(trackerRecord)
-            //completedTrackers.remove(trackerRecord)
         } else {
             DataProvider.shared.addRecord(trackerRecord)
-//            completedTrackers.insert(trackerRecord)
         }
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: tracker.id)
     }
@@ -259,8 +253,7 @@ extension TrackersViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         visibleCategories.count
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         visibleCategories[section].trackers.count
     }
@@ -285,7 +278,6 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.reuseIdentifier, for: indexPath) as! SectionHeaderView
             let category = visibleCategories[indexPath.section]
@@ -294,7 +286,6 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
             
         }
         return UICollectionReusableView()
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -323,6 +314,7 @@ extension TrackersViewController: DataProviderDelegate {
 
 
 //MARK: - UITextFieldDelegate
+
 extension TrackersViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let queryTextFiled = textField.text else { return }
@@ -352,11 +344,9 @@ extension TrackersViewController: UITextFieldDelegate {
     }
 }
 
-
 //MARK: - Filters cells
 
 extension TrackersViewController {
-    
     private func filtered() {
         var filteredCategories = [TrackerCategory]()
         

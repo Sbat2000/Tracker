@@ -1,13 +1,5 @@
-//
-//  TrackerCategoryStore.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 15.06.2023.
-//
-
 import UIKit
 import CoreData
-
 
 final class TrackerCategoryStore: NSObject {
     private lazy var appDelegate = {
@@ -44,7 +36,6 @@ final class TrackerCategoryStore: NSObject {
             category.header = header
             appDelegate.saveContext()
         }
-        
     }
     
     func checkCategoryInCoreData(header: String) -> Bool {

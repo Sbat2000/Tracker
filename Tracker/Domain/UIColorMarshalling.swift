@@ -1,10 +1,3 @@
-//
-//  UIColorMarshalling.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 14.06.2023.
-//
-
 import UIKit
 
 final class UIColorMarshalling {

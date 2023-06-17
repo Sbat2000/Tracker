@@ -1,13 +1,4 @@
-//
-//  TrackerCreateService.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 27.05.2023.
-//
-
-
 import UIKit
-
 
 final class DataProvider {
     
@@ -51,7 +42,6 @@ final class DataProvider {
     
     private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     
-    
     func updateCategories() {
         let category = trackerStore.fetchTrackers()
         delegate?.updateCategories(category)
@@ -89,7 +79,7 @@ final class DataProvider {
     }
     
     func getTrackers() -> [TrackerCategory] {
-        trackerStore.fetchTrackers() ?? []
+        trackerStore.fetchTrackers()
     }
     
     func getCategories() -> [String] {
@@ -129,6 +119,4 @@ final class DataProvider {
         color = .colorSection1
         emoji = "🙂"
     }
-    
-
 }

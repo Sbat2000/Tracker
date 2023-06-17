@@ -1,10 +1,3 @@
-//
-//  TrackerRecordStore.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 16.06.2023.
-//
-
 import UIKit
 import CoreData
 
@@ -39,7 +32,6 @@ final class TrackerRecordStore: NSObject {
         newRecord.id = record.id
         newRecord.date = record.date
         appDelegate.saveContext()
-        print(fetchedResultController.fetchedObjects)
     }
     
     func deleteTrackerRecord(_ record: TrackerRecord) {

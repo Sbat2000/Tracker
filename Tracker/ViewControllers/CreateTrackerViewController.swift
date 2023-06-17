@@ -1,10 +1,3 @@
-//
-//  CreateTrackerViewController.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 26.05.2023.
-//
-
 import UIKit
 
 final class CreateTrackerViewController: UIViewController {
@@ -28,7 +21,6 @@ final class CreateTrackerViewController: UIViewController {
             case .event: return ["Категория"]
             }
         }
-        
     }
     
     init(type: `Type`) {
@@ -380,7 +372,6 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
                 dataProvider.emoji = emoji
             }
             selectedEmojiIndexPatch = indexPath
-            print(dataProvider.emoji)
         } else if collectionView == colorsCollectionView {
             if let selectedIndexPath = selectedColorIndexPatch, let previousCell = collectionView.cellForItem(at: selectedIndexPath) as? ColorCell
             {
@@ -392,7 +383,6 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
             if let color = cell?.colorView.backgroundColor {
                 dataProvider.color = color
             }
-            print(dataProvider.color)
         }
     }
     

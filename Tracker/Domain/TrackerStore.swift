@@ -1,10 +1,3 @@
-//
-//  TrackerStore.swift
-//  Tracker
-//
-//  Created by Aleksandr Garipov on 14.06.2023.
-//
-
 import UIKit
 import CoreData
 
@@ -90,7 +83,6 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
         
         appDelegate.saveContext()
     }
-    
 }
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {
@@ -100,9 +92,6 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        guard let insertedIndexes = insertedIndexes,
-//              let deletedIndexes = deletedIndexes,
-//              let section = section else { return }
         try? fetchedResultController.performFetch()
         dataProvider.updateCategories()
     }
