@@ -33,16 +33,13 @@ final class TrackerRecordStore: NSObject {
         }
         return fetchController
     }()
-    
-    func getRecords() {
-        
-    }
-    
+
     func addTrackerRecord(_ record: TrackerRecord) {
         let newRecord = TrackerRecordCoreData(context: context)
         newRecord.id = record.id
         newRecord.date = record.date
         appDelegate.saveContext()
+        print(fetchedResultController.fetchedObjects)
     }
     
     func deleteTrackerRecord(_ record: TrackerRecord) {
@@ -84,7 +81,7 @@ final class TrackerRecordStore: NSObject {
 extension TrackerRecordStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         try? fetchedResultController.performFetch()
-        
+        DataProvider.shared.updateRecords()
     }
 }
 

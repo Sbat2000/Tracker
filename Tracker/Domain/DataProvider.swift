@@ -15,6 +15,7 @@ final class DataProvider {
     
     private lazy var trackerStore =  TrackerStore()
     private lazy var trackerCategoryStore = TrackerCategoryStore()
+    private lazy var trackerRecordStore = TrackerRecordStore()
     
     private init() { }
     
@@ -97,6 +98,21 @@ final class DataProvider {
     
     func setMainCategory() {
         trackerCategoryStore.setMainCategory()
+    }
+    
+    //MARK: - TreckerRecord
+    
+    func updateRecords() {
+        let newRecords = trackerRecordStore.getRecords()
+        delegate?.updateRecords(newRecords)
+    }
+    
+    func addRecord(_ record: TrackerRecord) {
+        trackerRecordStore.addTrackerRecord(record)
+    }
+    
+    func deleteRecord(_ record: TrackerRecord) {
+        trackerRecordStore.deleteTrackerRecord(record)
     }
     
     func getFormattedSchedule() -> String? {

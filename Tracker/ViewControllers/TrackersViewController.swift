@@ -69,6 +69,7 @@ final class TrackersViewController: UIViewController {
         updateVisibleCategories(categories)
         initialDay()
         dataProvider.delegate = self
+        DataProvider.shared.updateRecords()
         searchTextField.delegate = self
         query = searchTextField.text ?? ""
         view.backgroundColor = .systemBackground
@@ -197,9 +198,11 @@ final class TrackersViewController: UIViewController {
         guard currentDate < Date() || tracker.schedule.isEmpty else { return }
         let trackerRecord = createTrackerRecord(with: tracker.id)
         if completedTrackers.contains(trackerRecord) {
-            completedTrackers.remove(trackerRecord)
+            DataProvider.shared.deleteRecord(trackerRecord)
+            //completedTrackers.remove(trackerRecord)
         } else {
-            completedTrackers.insert(trackerRecord)
+            DataProvider.shared.addRecord(trackerRecord)
+//            completedTrackers.insert(trackerRecord)
         }
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: tracker.id)
     }
@@ -249,6 +252,8 @@ final class TrackersViewController: UIViewController {
     }
 }
 
+//MARK: - UICollectionViewDataSource & Delegate
+
 extension TrackersViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -297,17 +302,22 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - DataProviderDelegate
+
 extension TrackersViewController: DataProviderDelegate {
     func updateCategories(_ newCategory: [TrackerCategory]) {
         categories = newCategory
         updateVisibleCategories(categories)
     }
-    
-    
+
     func addTrackers() {
         updateVisibleCategories(categories)
         filtered()
         dismissAllModalControllers(from: self)
+    }
+    
+    func updateRecords(_ newRecords: Set<TrackerRecord>) {
+        completedTrackers = newRecords
     }
 }
 
