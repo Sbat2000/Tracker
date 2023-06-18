@@ -143,6 +143,7 @@ final class CreateTrackerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupLayout()
+        setupKeyboard()
     }
     
     private func setupBottomButtonsStack() {
@@ -162,6 +163,7 @@ final class CreateTrackerViewController: UIViewController {
         
         setupBottomButtonsStack()
         view.addSubview(bottomButtonsStack)
+        trackerHeaderTextField.delegate = self
     }
     
     private func setupScrollView() {
@@ -391,5 +393,24 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
         if let selectedIndexPath = emojiesCollectionView.indexPathsForSelectedItems?.first {
             emojiesCollectionView.deselectItem(at: selectedIndexPath, animated: false)
         }
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension CreateTrackerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        trackerHeaderTextField.resignFirstResponder()
+        return true
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    private func setupKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
 }

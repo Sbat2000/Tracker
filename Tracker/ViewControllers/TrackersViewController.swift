@@ -340,7 +340,11 @@ extension TrackersViewController: UITextFieldDelegate {
             placeholder.image = .placeHolder
             label.text = "Что будем отслеживать?"
         }
-
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.resignFirstResponder()
+        return true
     }
 }
 
