@@ -125,7 +125,8 @@ final class DataProvider {
     
     private func clean() {
         schedule = []
-        color = .colorSection1
-        emoji = "🙂"
+        color = .black
+        emoji = ""
+        title = ""
     }
 }
