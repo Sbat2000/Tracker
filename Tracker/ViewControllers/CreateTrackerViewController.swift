@@ -164,6 +164,7 @@ final class CreateTrackerViewController: UIViewController {
         setupBottomButtonsStack()
         view.addSubview(bottomButtonsStack)
         trackerHeaderTextField.delegate = self
+        createButton.isEnabled = false
     }
     
     private func setupScrollView() {
@@ -209,8 +210,17 @@ final class CreateTrackerViewController: UIViewController {
     
     @objc
     private func createButtonPressed() {
-        let title = trackerHeaderTextField.text ?? "Не ввели название"
-        dataProvider.createTracker(title: title)
+        dataProvider.createTracker()
+    }
+    
+    private func createButtonPressedIsEnabled() {
+        if DataProvider.shared.updateButtonEnabled() {
+            createButton.isEnabled = true
+            createButton.backgroundColor = .blackDay
+        } else {
+            createButton.isEnabled = false
+            createButton.backgroundColor = .ypGray
+        }
     }
     
     private func scheduleButtonPressed() {
@@ -344,7 +354,7 @@ extension CreateTrackerViewController: UICollectionViewDataSource {
             cell.colorView.backgroundColor = dataProvider.arrayOfColors[indexPath.row]
             return cell
         }
-        fatalError("Unknown collection view")
+        return UICollectionViewCell()
     }
 }
 
@@ -373,6 +383,7 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
             if let emoji = cell?.label.text {
                 dataProvider.emoji = emoji
             }
+            createButtonPressedIsEnabled()
             selectedEmojiIndexPatch = indexPath
         } else if collectionView == colorsCollectionView {
             if let selectedIndexPath = selectedColorIndexPatch, let previousCell = collectionView.cellForItem(at: selectedIndexPath) as? ColorCell
@@ -385,6 +396,7 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
             if let color = cell?.colorView.backgroundColor {
                 dataProvider.color = color
             }
+            createButtonPressedIsEnabled()
         }
     }
     
@@ -399,6 +411,13 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - UITextFieldDelegate
 
 extension CreateTrackerViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let queryTextFiled = trackerHeaderTextField.text else { return }
+        DataProvider.shared.title = queryTextFiled
+        createButtonPressedIsEnabled()
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         trackerHeaderTextField.resignFirstResponder()
         return true

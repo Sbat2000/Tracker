@@ -219,7 +219,7 @@ final class TrackersViewController: UIViewController {
         filtered()
     }
     
-    internal func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
+    func updateVisibleCategories(_ newCategory: [TrackerCategory]) {
         visibleCategories = newCategory
         trackersCollectionView.reloadData()
         updateCollectionViewVisibility()

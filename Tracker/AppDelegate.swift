@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores { storeDescription, error in
             if let error {
-                print(error.localizedDescription)
+                assertionFailure(error.localizedDescription)
             }
         }
         return container
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-               fatalError("cant save context")
+               assertionFailure("cant save context")
             }
         }
     }

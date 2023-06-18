@@ -21,7 +21,7 @@ final class TrackerCategoryStore: NSObject {
         do {
             try fetchController.performFetch()
         } catch  {
-            print(error.localizedDescription)
+            assertionFailure(error.localizedDescription)
         }
         return fetchController
     }()
@@ -41,12 +41,7 @@ final class TrackerCategoryStore: NSObject {
     func checkCategoryInCoreData(header: String) -> Bool {
         guard let categories = fetchedResultController.fetchedObjects else { return false }
         
-        for category in categories {
-            if category.header == header {
-                return true
-            }
-        }
-        return false
+        return categories.contains(where: { $0.header == header })
     }
     
     func setMainCategory() {
@@ -59,16 +54,17 @@ final class TrackerCategoryStore: NSObject {
     
     func getCategories() -> [String] {
         guard let categories = fetchedResultController.fetchedObjects else { return [] }
-        var categoriesArray: [String] = []
-        for category in categories {
-            categoriesArray.append(category.header!)
-        }
+        let categoriesArray: [String] = categories.compactMap { $0.header }
         return categoriesArray
     }
 }
 
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        try? fetchedResultController.performFetch()
+        do {
+            try fetchedResultController.performFetch()
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
     }
 }

@@ -36,13 +36,13 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
     }()
     
     func fetchTrackers() -> [TrackerCategory] {
-        guard let section = fetchedResultController.sections else { return [] }
+        guard let sections = fetchedResultController.sections else { return [] }
         
         var trackerCategoryArray: [TrackerCategory] = []
         
-        for section in section {
+        for section in sections {
             guard let object = section.objects as? [TrackerCoreData] else {
-                return []
+                continue
             }
             
             var trackers: [Tracker] = []
@@ -53,7 +53,7 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
                                          name: tracker.name ?? "",
                                          color: color,
                                          emoji: tracker.emoji ?? "",
-                                         schedule: tracker.schedule as? [Int] ?? [])
+                                         schedule: tracker.schedule ?? [])
                 trackers.append(newTracker)
                
             }

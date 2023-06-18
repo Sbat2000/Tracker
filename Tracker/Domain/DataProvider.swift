@@ -4,16 +4,17 @@ final class DataProvider {
     
     static let shared = DataProvider()
     
+    private init() { }
+    
     private lazy var trackerStore =  TrackerStore()
     private lazy var trackerCategoryStore = TrackerCategoryStore()
     private lazy var trackerRecordStore = TrackerRecordStore()
     
-    private init() { }
-    
     weak var delegate: DataProviderDelegate?
-    var emoji = "🙂"
-    var color: UIColor = .colorSection1
+    var emoji = ""
+    var color: UIColor = .black
     var category: String = "Важное"
+    var title = ""
     private var schedule: [Int] = []
     
     private var visibleCategories: [TrackerCategory]?
@@ -63,7 +64,7 @@ final class DataProvider {
         schedule.contains(day)
     }
  
-    func createTracker(title: String) {
+    func createTracker() {
         let tracker = Tracker(id: UUID(),
                               name: title,
                               color: self.color,
@@ -88,6 +89,14 @@ final class DataProvider {
     
     func setMainCategory() {
         trackerCategoryStore.setMainCategory()
+    }
+    
+    func updateButtonEnabled() -> Bool {
+        if !emoji.isEmpty && color != .black && !title.isEmpty {
+            return true
+        } else {
+            return false
+        }
     }
     
     //MARK: - TreckerRecord
