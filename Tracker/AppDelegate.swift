@@ -1,8 +1,32 @@
 
 import UIKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Model")
+        container.loadPersistentStores { storeDescription, error in
+            if let error {
+                assertionFailure(error.localizedDescription)
+            }
+        }
+        return container
+    }()
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+               assertionFailure("cant save context")
+            }
+        }
+    }
+    
 
     var window: UIWindow?
 
