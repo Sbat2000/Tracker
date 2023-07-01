@@ -59,6 +59,8 @@
 		E295807C2A20BA360000475E /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295807B2A20BA360000475E /* ScheduleCell.swift */; };
 		E2B361612A4FEB9A00B22289 /* OnBoardingPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */; };
 		E2B361632A501A8D00B22289 /* OnBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361622A501A8D00B22289 /* OnBoardViewController.swift */; };
+		E2B361882A504CBE00B22289 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361872A504CBE00B22289 /* Observable.swift */; };
+		E2B3618A2A504EB600B22289 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361892A504EB600B22289 /* CategoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		E295807B2A20BA360000475E /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPagesController.swift; sourceTree = "<group>"; };
 		E2B361622A501A8D00B22289 /* OnBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardViewController.swift; sourceTree = "<group>"; };
+		E2B361872A504CBE00B22289 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E2B361892A504EB600B22289 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,7 +291,6 @@
 		E28565962A230F950085A301 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E285658C2A21DAF00085A301 /* CategoryCell.swift */,
 				E295807B2A20BA360000475E /* ScheduleCell.swift */,
 				E285658E2A21E1E90085A301 /* PlaceholderCell.swift */,
 				E28565972A230FE90085A301 /* CreateCell.swift */,
@@ -312,20 +315,31 @@
 		E29580742A2054180000475E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E2B361862A504CAD00B22289 /* Category */,
 				E2187D012A18F8F4004191C8 /* TrackersViewController.swift */,
 				E2187DFA2A1CB855004191C8 /* TabBarController.swift */,
 				E29580722A204CB60000475E /* SelectTypeTrackerViewController.swift */,
 				E29580752A2055D40000475E /* CreateTrackerViewController.swift */,
 				E29580772A20B4B40000475E /* ScheduleViewController.swift */,
-				E285658A2A21D8210085A301 /* CategoryViewController.swift */,
 				E28565922A21F6740085A301 /* ScheduleCellDelegate.swift */,
 				E28565942A2207A30085A301 /* DataProviderDelegate.swift */,
-				E285659B2A2323B20085A301 /* CategoryViewControllerDelegate.swift */,
 				E285659D2A2331660085A301 /* ScheduleViewControllerDelegate.swift */,
 				E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */,
 				E2B361622A501A8D00B22289 /* OnBoardViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E2B361862A504CAD00B22289 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				E285658A2A21D8210085A301 /* CategoryViewController.swift */,
+				E2B361872A504CBE00B22289 /* Observable.swift */,
+				E2B361892A504EB600B22289 /* CategoryViewModel.swift */,
+				E285658C2A21DAF00085A301 /* CategoryCell.swift */,
+				E285659B2A2323B20085A301 /* CategoryViewControllerDelegate.swift */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,8 +486,10 @@
 				E29580732A204CB60000475E /* SelectTypeTrackerViewController.swift in Sources */,
 				E28565912A21EF660085A301 /* DataProvider.swift in Sources */,
 				E295806F2A1F08400000475E /* TrackerRecord.swift in Sources */,
+				E2B3618A2A504EB600B22289 /* CategoryViewModel.swift in Sources */,
 				E2187D2E2A18FFDF004191C8 /* StatsViewController.swift in Sources */,
 				E28565982A230FE90085A301 /* CreateCell.swift in Sources */,
+				E2B361882A504CBE00B22289 /* Observable.swift in Sources */,
 				E214C4B62A39EE4700D59B75 /* TrackerStore.swift in Sources */,
 				E28565952A2207A30085A301 /* DataProviderDelegate.swift in Sources */,
 				E285659E2A2331660085A301 /* ScheduleViewControllerDelegate.swift in Sources */,
