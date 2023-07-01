@@ -36,5 +36,7 @@ enum Resources {
         static let TrackersTabBarIcon       = UIImage(named: "Trackers TabBar Icon")
         static let StatsTabBarIcon          = UIImage(named: "Stats TabBar icon")
         static let PlusIcon                 = UIImage(named: "Plus icon")
+        static let FirstOnBoardVCBackGround = UIImage(named: "OnBoardOne")
+        static let SecondOnBoardVCBackGround = UIImage(named: "OnBoardTwo")
     }
 }

@@ -57,6 +57,8 @@
 		E29580782A20B4B40000475E /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580772A20B4B40000475E /* ScheduleViewController.swift */; };
 		E295807A2A20B98C0000475E /* UITableViewCell + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29580792A20B98C0000475E /* UITableViewCell + Ext.swift */; };
 		E295807C2A20BA360000475E /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E295807B2A20BA360000475E /* ScheduleCell.swift */; };
+		E2B361612A4FEB9A00B22289 /* OnBoardingPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */; };
+		E2B361632A501A8D00B22289 /* OnBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361622A501A8D00B22289 /* OnBoardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		E29580772A20B4B40000475E /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		E29580792A20B98C0000475E /* UITableViewCell + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Ext.swift"; sourceTree = "<group>"; };
 		E295807B2A20BA360000475E /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPagesController.swift; sourceTree = "<group>"; };
+		E2B361622A501A8D00B22289 /* OnBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +322,8 @@
 				E28565942A2207A30085A301 /* DataProviderDelegate.swift */,
 				E285659B2A2323B20085A301 /* CategoryViewControllerDelegate.swift */,
 				E285659D2A2331660085A301 /* ScheduleViewControllerDelegate.swift */,
+				E2B361602A4FEB9A00B22289 /* OnBoardingPagesController.swift */,
+				E2B361622A501A8D00B22289 /* OnBoardViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -458,6 +464,7 @@
 				E285658D2A21DAF00085A301 /* CategoryCell.swift in Sources */,
 				E2187DED2A1C6667004191C8 /* ReuseIdentifierProtocol.swift in Sources */,
 				E29580782A20B4B40000475E /* ScheduleViewController.swift in Sources */,
+				E2B361632A501A8D00B22289 /* OnBoardViewController.swift in Sources */,
 				E2187D022A18F8F4004191C8 /* TrackersViewController.swift in Sources */,
 				E29580762A2055D40000475E /* CreateTrackerViewController.swift in Sources */,
 				E29580682A1E396F0000475E /* RoundedLabelClass.swift in Sources */,
@@ -479,6 +486,7 @@
 				E285658B2A21D8210085A301 /* CategoryViewController.swift in Sources */,
 				E214C4AB2A37505E00D59B75 /* ColorCell.swift in Sources */,
 				E295807C2A20BA360000475E /* ScheduleCell.swift in Sources */,
+				E2B361612A4FEB9A00B22289 /* OnBoardingPagesController.swift in Sources */,
 				E2187DF22A1C6C3B004191C8 /* LaunchScreenViewController.swift in Sources */,
 				E214C4BA2A3B4C5300D59B75 /* TrackerStoreProtocol.swift in Sources */,
 				E2187DFB2A1CB855004191C8 /* TabBarController.swift in Sources */,
