@@ -13,6 +13,7 @@ final class DataProvider {
     weak var delegate: DataProviderDelegate?
     var emoji = ""
     var color: UIColor = .black
+    @Observable
     var category: String = "Важное"
     var title = ""
     private var schedule: [Int] = []

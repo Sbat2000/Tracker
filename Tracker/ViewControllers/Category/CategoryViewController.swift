@@ -155,6 +155,5 @@ extension CategoryViewController: UITableViewDataSource {
 extension CategoryViewController: CreateCategoryViewModelDelegate {
     func updateCategory() {
         categoryViewModel.updateData()
-        self.tableView.reloadData()
     }
 }

@@ -144,6 +144,7 @@ final class CreateTrackerViewController: UIViewController {
         setupUI()
         setupLayout()
         setupKeyboard()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,6 +209,12 @@ final class CreateTrackerViewController: UIViewController {
             cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.bounds.size.width, bottom: 0, right: 0)
         }
         return cell
+    }
+    
+    private func bind() {
+        dataProvider.$category.bind {[weak self] _ in
+            self?.tableView.reloadData()
+        }
     }
     
     @objc

@@ -41,7 +41,6 @@ final class CreateCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        viewModel = CreateCategoryViewModel()
         setupUI()
         setupLayout()
         bind()
