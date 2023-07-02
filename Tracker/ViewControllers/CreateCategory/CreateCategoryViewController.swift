@@ -44,6 +44,7 @@ final class CreateCategoryViewController: UIViewController {
         setupUI()
         setupLayout()
         bind()
+        setupKeyboard()
     }
     
     @objc
@@ -71,6 +72,7 @@ final class CreateCategoryViewController: UIViewController {
     }
     
     private func setupUI() {
+        categoryHeaderTextField.delegate = self
         view.backgroundColor = .white
         view.addSubview(headerLabel)
         view.addSubview(categoryHeaderTextField)
@@ -92,5 +94,23 @@ final class CreateCategoryViewController: UIViewController {
             createButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             createButton.heightAnchor.constraint(equalToConstant: 50),
         ])
+    }
+}
+
+extension CreateCategoryViewController: UITextFieldDelegate {
+
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    private func setupKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
 }
