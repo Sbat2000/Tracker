@@ -8,8 +8,8 @@
 import Foundation
 
 struct TrackerCategory {
-    let header      :String
-    let trackers    :[Tracker]
+    let header: String
+    let trackers: [Tracker]
     
     init(header: String, trackers: [Tracker]) {
         self.header = header

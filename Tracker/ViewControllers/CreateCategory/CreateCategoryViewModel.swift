@@ -11,12 +11,10 @@ final class CreateCategoryViewModel {
     
     func didEnter(header: String?) {
         guard let header else { return }
-        let enabled = header != ""
-        isCreateButtonEnabled = enabled
+        isCreateButtonEnabled = header != ""
     }
     
     func createButtonPressed(category: String) {
-        print("Category", category)
         DataProvider.shared.addCategory(header: category)
         delegate?.updateCategory()
     }

@@ -10,12 +10,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = OnBoardingPagesController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        
+        if onBoardingViewViewControllerWasShown() == false {
+            window.rootViewController = OnBoardingPagesController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        } else {
+            window.rootViewController = TabBarController()
+        }
         self.window = window
         window.makeKeyAndVisible()
         
+    }
+    
+    func onBoardingViewViewControllerWasShown() -> Bool {
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        return isFirstLaunch
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -71,7 +71,6 @@ final class CategoryViewController: UIViewController {
     private func setupUI() {
         tableView.dataSource = self
         tableView.delegate = self
- //       selectedIndexPath = IndexPath(row: 0, section: 0)
         view.backgroundColor = .whiteDay
         view.addSubview(headerLabel)
         view.addSubview(tableView)

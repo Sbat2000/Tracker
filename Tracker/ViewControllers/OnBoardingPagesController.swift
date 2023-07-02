@@ -54,7 +54,12 @@ final class OnBoardingPagesController: UIPageViewController {
     private func resumeButtonTapped() {
         let tabBarViewController = TabBarController()
         tabBarViewController.modalPresentationStyle = .fullScreen
+        skipOnBoardingViewControllerNextTime()
         present(tabBarViewController, animated: true)
+    }
+    
+    private func skipOnBoardingViewControllerNextTime() {
+        UserDefaults.standard.set(true, forKey: "isFirstLaunch")
     }
     
     private func setupLayout() {

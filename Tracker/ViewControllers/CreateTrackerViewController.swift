@@ -151,9 +151,7 @@ final class CreateTrackerViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
     }
-    
-    
-    
+
     private func setupBottomButtonsStack() {
         bottomButtonsStack.addArrangedSubview(cancelButton)
         bottomButtonsStack.addArrangedSubview(createButton)
