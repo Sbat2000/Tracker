@@ -56,7 +56,14 @@ final class CategoryViewController: UIViewController {
     
     @objc
     private func addCategoryButtonPressed() {
-        
+        let vc = CreateCategoryViewController()
+        present(vc, animated: true)
+    }
+    
+    private func bind() {
+        categoryViewModel.$categoryArray.bind {[weak self] _ in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupUI() {
@@ -67,6 +74,7 @@ final class CategoryViewController: UIViewController {
         view.addSubview(headerLabel)
         view.addSubview(tableView)
         view.addSubview(addCategoryButton)
+        bind()
     }
     
     

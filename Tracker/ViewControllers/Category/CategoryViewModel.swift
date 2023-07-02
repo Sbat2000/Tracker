@@ -3,11 +3,12 @@
 import Foundation
 
 final class CategoryViewModel {
-    @Observable private var categoryArray: [String] = []
+    @Observable var categoryArray: [String] = []
     var selectedIndexPath: IndexPath?
     
     init() {
         categoryArray = DataProvider.shared.getCategories()
+        DataProvider.shared.delegate = self
     }
     
     var categoriesCount: Int {
@@ -37,5 +38,25 @@ final class CategoryViewModel {
     func updateData() {
         categoryArray = DataProvider.shared.getCategories()
     }
+    
+}
+
+extension CategoryViewModel: DataProviderDelegate {
+    func updateCategories() {
+        categoryArray = DataProvider.shared.getCategories()
+    }
+    
+    func addTrackers() {
+        
+    }
+    
+    func updateCategories(_ newCategory: [TrackerCategory]) {
+        
+    }
+    
+    func updateRecords(_ newRecords: Set<TrackerRecord>) {
+        
+    }
+    
     
 }

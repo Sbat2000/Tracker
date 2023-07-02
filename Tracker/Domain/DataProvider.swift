@@ -77,6 +77,7 @@ final class DataProvider {
     
     func addCategory(header: String) {
         trackerCategoryStore.addCategory(header: header)
+        delegate?.updateCategories()
     }
     
     func getTrackers() -> [TrackerCategory] {
