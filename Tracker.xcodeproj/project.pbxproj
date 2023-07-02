@@ -64,6 +64,7 @@
 		E2B3618D2A510E3C00B22289 /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B3618C2A510E3C00B22289 /* CreateCategoryViewController.swift */; };
 		E2B3618F2A5113BA00B22289 /* CreateCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B3618E2A5113BA00B22289 /* CreateCategoryViewModel.swift */; };
 		E2B361912A51233A00B22289 /* TrackerCategoryStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361902A51233A00B22289 /* TrackerCategoryStoreDelegate.swift */; };
+		E2B361932A51362C00B22289 /* CreateCategoryViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B361922A51362C00B22289 /* CreateCategoryViewModelDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		E2B3618C2A510E3C00B22289 /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
 		E2B3618E2A5113BA00B22289 /* CreateCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewModel.swift; sourceTree = "<group>"; };
 		E2B361902A51233A00B22289 /* TrackerCategoryStoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStoreDelegate.swift; sourceTree = "<group>"; };
+		E2B361922A51362C00B22289 /* CreateCategoryViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewModelDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +357,7 @@
 			children = (
 				E2B3618C2A510E3C00B22289 /* CreateCategoryViewController.swift */,
 				E2B3618E2A5113BA00B22289 /* CreateCategoryViewModel.swift */,
+				E2B361922A51362C00B22289 /* CreateCategoryViewModelDelegate.swift */,
 			);
 			path = CreateCategory;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				E2B3618F2A5113BA00B22289 /* CreateCategoryViewModel.swift in Sources */,
 				E295806B2A1F05A60000475E /* Tracker.swift in Sources */,
 				E29580622A1DBD000000475E /* SectionHeaderView.swift in Sources */,
+				E2B361932A51362C00B22289 /* CreateCategoryViewModelDelegate.swift in Sources */,
 				E295805C2A1DAA780000475E /* TrackersPresenter.swift in Sources */,
 				E28565932A21F6740085A301 /* ScheduleCellDelegate.swift in Sources */,
 				E28565A02A236C2C0085A301 /* UIImage +Ext.swift in Sources */,

@@ -3,7 +3,7 @@ import UIKit
 
 final class CreateCategoryViewController: UIViewController {
     
-    private var viewModel: CreateCategoryViewModel?
+    var viewModel: CreateCategoryViewModel?
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
@@ -41,7 +41,7 @@ final class CreateCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = CreateCategoryViewModel()
+//        viewModel = CreateCategoryViewModel()
         setupUI()
         setupLayout()
         bind()

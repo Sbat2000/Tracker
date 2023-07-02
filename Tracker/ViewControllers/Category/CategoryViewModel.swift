@@ -5,10 +5,8 @@ import Foundation
 final class CategoryViewModel {
     @Observable var categoryArray: [String] = []
     var selectedIndexPath: IndexPath?
-    
     init() {
         categoryArray = DataProvider.shared.getCategories()
-        DataProvider.shared.delegate = self
     }
     
     var categoriesCount: Int {
@@ -41,22 +39,4 @@ final class CategoryViewModel {
     
 }
 
-extension CategoryViewModel: DataProviderDelegate {
-    func updateCategories() {
-        categoryArray = DataProvider.shared.getCategories()
-    }
-    
-    func addTrackers() {
-        
-    }
-    
-    func updateCategories(_ newCategory: [TrackerCategory]) {
-        
-    }
-    
-    func updateRecords(_ newRecords: Set<TrackerRecord>) {
-        
-    }
-    
-    
-}
+

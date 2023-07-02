@@ -11,6 +11,5 @@ protocol DataProviderDelegate: AnyObject {
     func addTrackers()
     func updateCategories(_ newCategory: [TrackerCategory])
     func updateRecords(_ newRecords: Set<TrackerRecord>)
-    func updateCategories()
 }
 

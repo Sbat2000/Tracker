@@ -57,6 +57,8 @@ final class CategoryViewController: UIViewController {
     @objc
     private func addCategoryButtonPressed() {
         let vc = CreateCategoryViewController()
+        vc.viewModel = CreateCategoryViewModel()
+        vc.viewModel?.delegate = self
         present(vc, animated: true)
     }
     
@@ -148,4 +150,11 @@ extension CategoryViewController: UITableViewDataSource {
         tableView.reloadData()
     }
     
+}
+
+extension CategoryViewController: CreateCategoryViewModelDelegate {
+    func updateCategory() {
+        categoryViewModel.updateData()
+        self.tableView.reloadData()
+    }
 }

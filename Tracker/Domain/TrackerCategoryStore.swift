@@ -9,7 +9,7 @@ final class TrackerCategoryStore: NSObject {
         appDelegate.persistentContainer.viewContext
     }()
     
-    weak var delegate: TrackerCategoryStoreDelegate?
+    var delegate: TrackerCategoryStoreDelegate?
     
     private lazy var fetchedResultController: NSFetchedResultsController<TrackerCategoryCoreData> = {
         let request = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
