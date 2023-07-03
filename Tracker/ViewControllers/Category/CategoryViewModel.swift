@@ -37,6 +37,12 @@ final class CategoryViewModel {
         categoryArray = DataProvider.shared.getCategories()
     }
     
+    func deleteCategory(at indexPath: IndexPath) {
+        let header = categoryArray[indexPath.row]
+        DataProvider.shared.deleteCategory(at: header)
+        updateData()
+    }
+    
 }
 
 

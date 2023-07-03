@@ -76,6 +76,12 @@ final class DataProvider {
         clean()
     }
     
+    func deleteTracker(model: Tracker) {
+        trackerStore.deleteTacker(model: model)
+    }
+    
+    //MARK: - trackerCategoryStore
+    
     func addCategory(header: String) {
         trackerCategoryStore.addCategory(header: header)
     }
@@ -98,6 +104,10 @@ final class DataProvider {
         } else {
             return false
         }
+    }
+    
+    func deleteCategory(at header: String) {
+        trackerCategoryStore.deleteCategory(at: header)
     }
     
     //MARK: - TreckerRecord

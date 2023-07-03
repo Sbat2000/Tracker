@@ -40,6 +40,14 @@ final class TrackerCategoryStore: NSObject {
         }
     }
     
+    func deleteCategory(at header: String) {
+        guard let categories = fetchedResultController.fetchedObjects else { return }
+        if let categoryToDelete = categories.first(where: { $0.header == header }) {
+            context.delete(categoryToDelete)
+            appDelegate.saveContext()
+        }
+    }
+    
     func checkCategoryInCoreData(header: String) -> Bool {
         guard let categories = fetchedResultController.fetchedObjects else { return false }
         

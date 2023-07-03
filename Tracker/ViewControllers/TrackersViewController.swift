@@ -57,6 +57,7 @@ final class TrackersViewController: UIViewController {
     private lazy var trackersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.allowsMultipleSelection = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -260,6 +261,8 @@ extension TrackersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCollectionViewCell.reuseIdentifier, for: indexPath) as! TrackersCollectionViewCell
+        let interaction = UIContextMenuInteraction(delegate: self)
+        cell.addInteraction(interaction)
         let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
         setupUICell(cell, withTracker: tracker)
         return cell
@@ -390,5 +393,54 @@ extension TrackersViewController {
             filteredCategories = trackersWithFilteredName
         }
         updateVisibleCategories(filteredCategories)
+    }
+}
+
+//MARK: - UIContextMenuInteractionDelegate
+
+extension TrackersViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        
+        guard let cell = interaction.view as? TrackersCollectionViewCell else {
+            return nil
+        }
+        
+        guard let indexPath = trackersCollectionView.indexPath(for: cell) else {
+            return nil
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            let pickAction = UIAction(title: "Закрепить", image: nil, identifier: nil) { _ in
+                print(indexPath)
+            }
+            let deleteAction = UIAction(title: "Удалить", image: nil, identifier: nil) { _ in
+                self.deleteTracker(at: indexPath)
+            }
+            deleteAction.attributes = .destructive
+            let menu = UIMenu(title: "", children: [pickAction, deleteAction])
+            return menu
+        }
+    }
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+         guard let cell = interaction.view as? UICollectionViewCell else {
+             return nil
+         }
+        
+        let highlightedArea = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height - 61)
+        let cornerRadius: CGFloat = 16.0
+        let roundedPath = UIBezierPath(roundedRect: highlightedArea, cornerRadius: cornerRadius)
+        let parameters = UIDragPreviewParameters()
+        parameters.visiblePath = roundedPath
+        
+        let targetedPreview = UITargetedPreview(view: cell, parameters: parameters)
+        return targetedPreview
+    }
+    
+    private func deleteTracker(at indexPath: IndexPath) {
+        let category = visibleCategories[indexPath.section]
+        let tracker = category.trackers[indexPath.item]
+        
+        dataProvider.deleteTracker(model: tracker)
     }
 }

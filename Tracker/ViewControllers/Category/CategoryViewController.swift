@@ -78,6 +78,9 @@ final class CategoryViewController: UIViewController {
         bind()
     }
     
+    private func deleteCategory(at indexPath: IndexPath) {
+        categoryViewModel.deleteCategory(at: indexPath)
+    }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -113,7 +116,22 @@ final class CategoryViewController: UIViewController {
 }
 
 extension CategoryViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard indexPath.count > 0 else { return nil }
+        
+        let deleteAction = UIAction(title: "Удалить", image: nil, identifier: nil) { _ in
+            self.deleteCategory(at: indexPath)
+        }
+        
+        deleteAction.attributes = .destructive
+        
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            let menu = UIMenu(title: "", children: [deleteAction])
+            return menu
+        }
+        
+        return configuration
+    }
 }
 
 extension CategoryViewController: UITableViewDataSource {
@@ -156,3 +174,5 @@ extension CategoryViewController: CreateCategoryViewModelDelegate {
         categoryViewModel.updateData()
     }
 }
+
+

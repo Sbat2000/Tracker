@@ -83,6 +83,20 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
         
         appDelegate.saveContext()
     }
+    
+    func deleteTacker(model: Tracker) {
+            let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", model.id as CVarArg)
+            do {
+                let trackers = try context.fetch(fetchRequest)
+                if let tracker = trackers.first {
+                    context.delete(tracker)
+                    appDelegate.saveContext()
+                }
+            } catch {
+                print("Error deleting tracker record: \(error.localizedDescription)")
+            }
+    }
 }
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {
