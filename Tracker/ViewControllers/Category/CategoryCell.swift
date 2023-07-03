@@ -14,6 +14,12 @@ final class CategoryCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    var viewModel: String? {
+        didSet {
+            headerLabel.text = viewModel
+        }
+    }
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

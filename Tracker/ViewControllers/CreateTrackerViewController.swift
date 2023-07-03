@@ -144,8 +144,14 @@ final class CreateTrackerViewController: UIViewController {
         setupUI()
         setupLayout()
         setupKeyboard()
+        bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+
     private func setupBottomButtonsStack() {
         bottomButtonsStack.addArrangedSubview(cancelButton)
         bottomButtonsStack.addArrangedSubview(createButton)
@@ -203,6 +209,12 @@ final class CreateTrackerViewController: UIViewController {
         return cell
     }
     
+    private func bind() {
+        dataProvider.$category.bind {[weak self] _ in
+            self?.tableView.reloadData()
+        }
+    }
+    
     @objc
     private func dismissSelf() {
         dismiss(animated: true)
@@ -232,7 +244,6 @@ final class CreateTrackerViewController: UIViewController {
     
     private func categoryButtonPressed() {
         let categoryVC = CategoryViewController()
-        categoryVC.delegate = self
         present(categoryVC, animated: true)
     }
     

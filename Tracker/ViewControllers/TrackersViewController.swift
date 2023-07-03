@@ -296,6 +296,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - DataProviderDelegate
 
 extension TrackersViewController: DataProviderDelegate {
+    
     func updateCategories(_ newCategory: [TrackerCategory]) {
         categories = newCategory
         updateVisibleCategories(categories)

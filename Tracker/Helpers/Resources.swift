@@ -5,9 +5,9 @@ import UIKit
 enum Resources {
     enum Colors {
         
-        static let ypBlue   = UIColor(hexString: "#3772E7")
-        static let ypGray   = UIColor(hexString: "#E6E8EB")
-        static let ypWhite  = UIColor(hexString: "#FFFFFF")
+        static let ypBlue = UIColor(hexString: "#3772E7")
+        static let ypGray = UIColor(hexString: "#E6E8EB")
+        static let ypWhite = UIColor(hexString: "#FFFFFF")
         
         enum Sections {
             static let colorSection1 = UIColor(hexString: "#FD4C49")
@@ -32,9 +32,11 @@ enum Resources {
     }
     
     enum Images {
-        static let logoImage                = UIImage(named: "Logo")
-        static let TrackersTabBarIcon       = UIImage(named: "Trackers TabBar Icon")
-        static let StatsTabBarIcon          = UIImage(named: "Stats TabBar icon")
-        static let PlusIcon                 = UIImage(named: "Plus icon")
+        static let logoImage = UIImage(named: "Logo")
+        static let TrackersTabBarIcon = UIImage(named: "Trackers TabBar Icon")
+        static let StatsTabBarIcon = UIImage(named: "Stats TabBar icon")
+        static let PlusIcon = UIImage(named: "Plus icon")
+        static let FirstOnBoardVCBackGround = UIImage(named: "OnBoardOne")
+        static let SecondOnBoardVCBackGround = UIImage(named: "OnBoardTwo")
     }
 }

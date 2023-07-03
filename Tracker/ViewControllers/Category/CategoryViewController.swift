@@ -8,11 +8,7 @@
 import UIKit
 
 final class CategoryViewController: UIViewController {
-    
-    private var categoryArray: [String] = []
-    private var selectedIndexPath: IndexPath?
-    weak var delegate: CategoryViewControllerDelegate?
-    
+    private var categoryViewModel: CategoryViewModel!
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
@@ -45,14 +41,14 @@ final class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoryArray = DataProvider.shared.getCategories()
+        categoryViewModel = CategoryViewModel()
         setupUI()
         setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let selectedIndexPath = selectedIndexPath {
+        if let selectedIndexPath = categoryViewModel.selectedIndexPath {
             tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .none)
             tableView(tableView, didSelectRowAt: selectedIndexPath)
         }
@@ -60,17 +56,26 @@ final class CategoryViewController: UIViewController {
     
     @objc
     private func addCategoryButtonPressed() {
-        
+        let vc = CreateCategoryViewController()
+        vc.viewModel = CreateCategoryViewModel()
+        vc.viewModel?.delegate = self
+        present(vc, animated: true)
+    }
+    
+    private func bind() {
+        categoryViewModel.$categoryArray.bind {[weak self] _ in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupUI() {
         tableView.dataSource = self
         tableView.delegate = self
-        selectedIndexPath = IndexPath(row: 0, section: 0)
         view.backgroundColor = .whiteDay
         view.addSubview(headerLabel)
         view.addSubview(tableView)
         view.addSubview(addCategoryButton)
+        bind()
     }
     
     
@@ -98,7 +103,7 @@ final class CategoryViewController: UIViewController {
             cell.layer.cornerRadius = 10
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
-        if indexPath.row == (categoryArray.count - 1)  {
+        if indexPath.row == (categoryViewModel.categoriesCount - 1)  {
             cell.layer.cornerRadius = 10
             cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.bounds.size.width, bottom: 0, right: 0)
@@ -113,11 +118,7 @@ extension CategoryViewController: UITableViewDelegate {
 
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if categoryArray.isEmpty {
-            return 1
-        } else {
-            return categoryArray.count
-        }
+        categoryViewModel.categoriesCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -126,31 +127,32 @@ extension CategoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.reuseIdentifier, for: indexPath) as! CategoryCell
-        if let selectedIndexPath = selectedIndexPath, selectedIndexPath == indexPath {
+        if categoryViewModel.cellIsSelected(at: indexPath) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
         cell.selectionStyle = .none
-        cell.headerLabel.text = categoryArray[indexPath.row]
+        cell.viewModel = categoryViewModel.getCategory(at: indexPath.row)
         setupCornerRadiusCell(for: cell, indexPath: indexPath)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath
+        categoryViewModel.didSelectRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
-        if  !categoryArray.isEmpty  {
-            let category = categoryArray[indexPath.row]
-            DataProvider.shared.setCategory(category: category)
-            delegate?.didSelectCategory(category)
-            tableView.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        selectedIndexPath = nil
         tableView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        categoryViewModel.clearSelection()
+        tableView.reloadData()
+    }
+    
+}
+
+extension CategoryViewController: CreateCategoryViewModelDelegate {
+    func updateCategory() {
+        categoryViewModel.updateData()
+    }
 }

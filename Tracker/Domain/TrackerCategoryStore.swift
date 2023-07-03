@@ -9,6 +9,8 @@ final class TrackerCategoryStore: NSObject {
         appDelegate.persistentContainer.viewContext
     }()
     
+    var delegate: TrackerCategoryStoreDelegate?
+    
     private lazy var fetchedResultController: NSFetchedResultsController<TrackerCategoryCoreData> = {
         let request = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
         request.sortDescriptors = [NSSortDescriptor(keyPath: \TrackerCategoryCoreData.header, ascending: true)]
@@ -63,6 +65,7 @@ extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         do {
             try fetchedResultController.performFetch()
+            delegate?.addNewCategory()
         } catch {
             assertionFailure(error.localizedDescription)
         }
