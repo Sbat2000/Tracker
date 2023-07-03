@@ -53,9 +53,9 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
                                          name: tracker.name ?? "",
                                          color: color,
                                          emoji: tracker.emoji ?? "",
-                                         schedule: tracker.schedule ?? [])
+                                         schedule: tracker.schedule ?? [],
+                                         pinned: tracker.pinned)
                 trackers.append(newTracker)
-               
             }
             let trackerCategory = TrackerCategory(header: section.name, trackers: trackers)
             trackerCategoryArray.append(trackerCategory)
@@ -80,6 +80,7 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
         tracker.name = model.name
         tracker.schedule = model.schedule
         tracker.category = categoryCoreData
+        tracker.pinned = model.pinned
         
         appDelegate.saveContext()
     }
@@ -91,6 +92,20 @@ final class TrackerStore: NSObject, TrackerStoreProtocol {
                 let trackers = try context.fetch(fetchRequest)
                 if let tracker = trackers.first {
                     context.delete(tracker)
+                    appDelegate.saveContext()
+                }
+            } catch {
+                print("Error deleting tracker record: \(error.localizedDescription)")
+            }
+    }
+    
+    func pinTacker(model: Tracker) {
+            let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", model.id as CVarArg)
+            do {
+                let trackers = try context.fetch(fetchRequest)
+                if let tracker = trackers.first {
+                    tracker.pinned = !model.pinned
                     appDelegate.saveContext()
                 }
             } catch {

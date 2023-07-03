@@ -70,7 +70,8 @@ final class DataProvider {
                               name: title,
                               color: self.color,
                               emoji: emoji,
-                              schedule: schedule)
+                              schedule: schedule,
+                              pinned: false)
         trackerStore.addTracker(model: tracker)
         delegate?.addTrackers()
         clean()
@@ -78,6 +79,10 @@ final class DataProvider {
     
     func deleteTracker(model: Tracker) {
         trackerStore.deleteTacker(model: model)
+    }
+    
+    func pinTracker(model: Tracker) {
+        trackerStore.pinTacker(model: model)
     }
     
     //MARK: - trackerCategoryStore

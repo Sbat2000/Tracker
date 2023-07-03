@@ -357,17 +357,25 @@ extension TrackersViewController: UITextFieldDelegate {
 extension TrackersViewController {
     private func filtered() {
         var filteredCategories = [TrackerCategory]()
+        var pinnedTrackers = [Tracker]()
         
         for category in categories {
             var trackers = [Tracker]()
             for tracker in category.trackers {
                 let schedule = tracker.schedule
                 if schedule.contains(day) {
-                    trackers.append(tracker)
+                    if tracker.pinned {
+                        pinnedTrackers.append(tracker)
+                    } else {
+                        trackers.append(tracker)
+                    }
                 } else if schedule.isEmpty {
-                    trackers.append(tracker)
+                    if tracker.pinned {
+                        pinnedTrackers.append(tracker)
+                    } else {
+                        trackers.append(tracker)
+                    }
                 }
-                
             }
             if !trackers.isEmpty {
                 let trackerCategory = TrackerCategory(header: category.header, trackers: trackers)
@@ -382,7 +390,11 @@ extension TrackersViewController {
                 for tracker in category.trackers {
                     let trackerName = tracker.name.lowercased()
                     if trackerName.range(of: query, options: .caseInsensitive) != nil {
-                        trackers.append(tracker)
+                        if tracker.pinned {
+                            pinnedTrackers.append(tracker)
+                        } else {
+                            trackers.append(tracker)
+                        }
                     }
                 }
                 if !trackers.isEmpty {
@@ -392,6 +404,12 @@ extension TrackersViewController {
             }
             filteredCategories = trackersWithFilteredName
         }
+        
+        if !pinnedTrackers.isEmpty {
+            let pinnedCategory = TrackerCategory(header: "Закрепленные", trackers: pinnedTrackers)
+            filteredCategories.insert(pinnedCategory, at: 0)
+        }
+        
         updateVisibleCategories(filteredCategories)
     }
 }
@@ -408,10 +426,13 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         guard let indexPath = trackersCollectionView.indexPath(for: cell) else {
             return nil
         }
-        
+        let category = visibleCategories[indexPath.section]
+        let tracker = category.trackers[indexPath.item]
+        let pinTitle = tracker.pinned ? "Открепить" : "Закрепить"
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
-            let pickAction = UIAction(title: "Закрепить", image: nil, identifier: nil) { _ in
-                print(indexPath)
+            
+            let pickAction = UIAction(title: pinTitle, image: nil, identifier: nil) { _ in
+                self.pinTracker(at: indexPath)
             }
             let deleteAction = UIAction(title: "Удалить", image: nil, identifier: nil) { _ in
                 self.deleteTracker(at: indexPath)
@@ -437,10 +458,20 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         return targetedPreview
     }
     
+    private func pinTracker(at indexPath: IndexPath) {
+        let category = visibleCategories[indexPath.section]
+        let tracker = category.trackers[indexPath.item]
+        
+        dataProvider.pinTracker(model: tracker)
+        filtered()
+        
+    }
+    
     private func deleteTracker(at indexPath: IndexPath) {
         let category = visibleCategories[indexPath.section]
         let tracker = category.trackers[indexPath.item]
         
         dataProvider.deleteTracker(model: tracker)
+        filtered()
     }
 }
