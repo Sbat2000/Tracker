@@ -204,9 +204,10 @@ final class TrackersViewController: UIViewController {
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
         let count = completedTrackers.filter { $0.id == trackerID }.count
-        var text: String
-        text = count.days()
-        return("\(text)")
+//        var text: String
+//        text = count.days()
+//        return("\(text)")
+        return String.localizedStringWithFormat(NSLocalizedString("completedTrackers", comment: ""), count)
     }
     
     private func initialDay() {
