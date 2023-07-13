@@ -8,7 +8,7 @@ final class CreateCategoryViewController: UIViewController {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Новая категория"
+        label.text = NSLocalizedString("newCategory.title", comment: "")
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
@@ -20,7 +20,7 @@ final class CreateCategoryViewController: UIViewController {
         textField.textColor = .blackDay
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
         textField.leftViewMode = .always
-        textField.placeholder = "Введите название категории"
+        textField.placeholder = NSLocalizedString("newCategory.placeholder", comment: "")
         textField.layer.cornerRadius = 16
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
@@ -31,7 +31,8 @@ final class CreateCategoryViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
         button.backgroundColor = .ypGray
-        button.setTitle("Готово", for: .normal)
+        let title = NSLocalizedString("newCategory.readyButton.title", comment: "")
+        button.setTitle(title, for: .normal)
         button.isUserInteractionEnabled = false
         button.setTitleColor(.whiteDay
                              , for: .normal)

@@ -57,8 +57,8 @@ final class TabBarController: UITabBarController {
         let statsViewController = StatsViewController()
         self.trackersViewController = trackersViewController
         viewControllers = [
-            createNavControllers(for: trackersViewController, title: "Трекеры", image: Resources.Images.TrackersTabBarIcon!),
-            createNavControllers(for: statsViewController, title: "Статистика", image: Resources.Images.StatsTabBarIcon!)
+            createNavControllers(for: trackersViewController, title: NSLocalizedString("tabBar.trackers.title", comment: ""), image: Resources.Images.TrackersTabBarIcon!),
+            createNavControllers(for: statsViewController, title: NSLocalizedString("tabBar.stats.title", comment: ""), image: Resources.Images.StatsTabBarIcon!)
         ]
     }
     

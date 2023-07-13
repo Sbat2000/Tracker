@@ -12,7 +12,7 @@ final class SelectTypeTrackerViewController: UIViewController {
     let headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Создание трекера"
+        label.text = NSLocalizedString("selectType.title", comment: "")
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
@@ -23,7 +23,7 @@ final class SelectTypeTrackerViewController: UIViewController {
         button.addTarget(self, action: #selector(habitButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 16
         button.backgroundColor = .blackDay
-        button.setTitle("Привычка", for: .normal)
+        button.setTitle(NSLocalizedString("selectType.habitButton.title", comment: ""), for: .normal)
         return button
     }()
     
@@ -32,7 +32,7 @@ final class SelectTypeTrackerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
         button.backgroundColor = .blackDay
-        button.setTitle("Нерегулярные событие", for: .normal)
+        button.setTitle(NSLocalizedString("selectType.eventButton.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(eventButtonPressed), for: .touchUpInside)
         return button
     }()

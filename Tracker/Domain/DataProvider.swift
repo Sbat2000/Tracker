@@ -42,7 +42,13 @@ final class DataProvider {
                                     .colorSection17,
                                     .colorSection18,]
     
-    private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+   private let shortDayArray = [NSLocalizedString("mo", comment: ""),
+                                NSLocalizedString("tu", comment: ""),
+                                NSLocalizedString("we", comment: ""),
+                                NSLocalizedString("th", comment: ""),
+                                NSLocalizedString("fr", comment: ""),
+                                NSLocalizedString("sa", comment: ""),
+                                NSLocalizedString("su", comment: "")]
     
     func updateCategories() {
         let category = trackerStore.fetchTrackers()

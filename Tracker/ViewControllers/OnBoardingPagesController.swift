@@ -5,12 +5,12 @@ final class OnBoardingPagesController: UIPageViewController {
     private lazy var pages: [OnBoardViewController] = {
         let firstVC =
         OnBoardViewController(
-            headerText: "Отслеживайте только то, что хотите",
+            headerText: NSLocalizedString("onboard.titleOne", comment: ""),
             backGroundImage: Resources.Images.FirstOnBoardVCBackGround!)
         
         let secondVC =
         OnBoardViewController(
-            headerText: "Даже если это не литры воды и йога",
+            headerText: NSLocalizedString("onboard.titleTwo", comment: ""),
             backGroundImage: Resources.Images.SecondOnBoardVCBackGround!)
         return [firstVC, secondVC]
     }()
@@ -30,7 +30,7 @@ final class OnBoardingPagesController: UIPageViewController {
     private lazy var startButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 16
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle(NSLocalizedString("onboard.startButton.title", comment: ""), for: .normal)
         button.backgroundColor = .blackDay
         button.setTitleColor(.whiteDay, for: .normal)
         button.addTarget(self, action: #selector(resumeButtonTapped), for: .touchUpInside)

@@ -17,7 +17,7 @@ final class TrackersViewController: UIViewController {
     
     lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
-        searchTextField.placeholder = "Поиск"
+        searchTextField.placeholder = NSLocalizedString("trackers.searchTextField.placeholder", comment: "")
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.clearButtonMode = .never
         return searchTextField
@@ -26,7 +26,7 @@ final class TrackersViewController: UIViewController {
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(NSLocalizedString("trackers.cancelButton.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -50,7 +50,7 @@ final class TrackersViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
         label.textColor = .blackDay
-        label.text = "Что будем отслеживать?"
+        label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
         return label
     }()
     
@@ -229,7 +229,7 @@ final class TrackersViewController: UIViewController {
     private func setupPlaceHolder() {
         if visibleCategories.isEmpty  {
             placeholder.image = .notFound
-            label.text = "Ничего не найдено"
+            label.text = NSLocalizedString("trackers.notFoundPlaceholder.title", comment: "")
         }
     }
     
@@ -342,7 +342,7 @@ extension TrackersViewController: UITextFieldDelegate {
         }
         if categories.isEmpty {
             placeholder.image = .placeHolder
-            label.text = "Что будем отслеживать?"
+            label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
         }
     }
     
