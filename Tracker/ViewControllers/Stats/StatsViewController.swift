@@ -81,6 +81,27 @@ extension StatsViewController: UITableViewDataSource {
         cell.countLabel.text = "\(count)"
         cell.headerLabel.text = "Трекеров завершено"
         cell.selectionStyle = .none
+        
+        
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        let gradient = CAGradientLayer()
+            gradient.frame =  CGRect(origin: CGPoint.zero, size: cell.frame.size)
+            gradient.colors = [UIColor.blue.cgColor, UIColor.green.cgColor]
+
+            let shape = CAShapeLayer()
+            shape.lineWidth = 2
+            shape.path = UIBezierPath(rect: cell.bounds).cgPath
+            shape.strokeColor = UIColor.black.cgColor
+            shape.fillColor = UIColor.clear.cgColor
+            gradient.mask = shape
+        gradient.cornerRadius = 16
+        cell.layer.addSublayer(gradient)
+
+        cell.backgroundColor = .yellow
+            
+
+        
         return cell
     }
 }

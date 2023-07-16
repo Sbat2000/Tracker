@@ -22,29 +22,10 @@ final class StatsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupLayout()
-        setupBorder()
-    }
-    
-    private func setupBorder() {
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor.red.cgColor
-        let gradient = CAGradientLayer()
-            gradient.frame =  CGRect(origin: CGPoint.zero, size: self.frame.size)
-            gradient.colors = [UIColor.blue.cgColor, UIColor.green.cgColor]
-
-            let shape = CAShapeLayer()
-            shape.lineWidth = 2
-            shape.path = UIBezierPath(rect: self.bounds).cgPath
-            shape.strokeColor = UIColor.black.cgColor
-            shape.fillColor = UIColor.clear.cgColor
-            gradient.mask = shape
-
-            self.layer.addSublayer(gradient)
     }
     
     private func setupUI() {
         backgroundColor = .white
-        layer.cornerRadius = 16
         addSubview(countLabel)
         addSubview(headerLabel)
     }
@@ -60,8 +41,6 @@ final class StatsCell: UITableViewCell {
             headerLabel.trailingAnchor.constraint(equalTo: countLabel.trailingAnchor),
             headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
