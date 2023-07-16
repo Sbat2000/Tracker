@@ -38,3 +38,4 @@
 "trackers.notFoundPlaceholder.title" = "Ничего не найдено";
 "tabBar.trackers.title" = "Трекеры";
 "tabBar.stats.title" = "Статистика";
+"stats.placeHolder.title" = "Анализировать пока нечего";

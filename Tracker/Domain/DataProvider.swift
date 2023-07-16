@@ -130,10 +130,16 @@ final class DataProvider {
     
     func addRecord(_ record: TrackerRecord) {
         trackerRecordStore.addTrackerRecord(record)
+        let currentCount = UserDefaults.standard.integer(forKey: "completedTrackers")
+        let newCount = currentCount + 1
+        UserDefaults.standard.set(newCount, forKey: "completedTrackers")
     }
     
     func deleteRecord(_ record: TrackerRecord) {
         trackerRecordStore.deleteTrackerRecord(record)
+        let currentCount = UserDefaults.standard.integer(forKey: "completedTrackers")
+            let newCount = max(currentCount - 1, 0)
+            UserDefaults.standard.set(newCount, forKey: "completedTrackers")
     }
     
     func getFormattedSchedule() -> String? {
@@ -143,6 +149,11 @@ final class DataProvider {
         
         let days = schedule.map { shortDayArray[$0 - 1] }
         return days.joined(separator: ", ")
+    }
+    
+    func getCompletedTrackers() -> Int {
+        let completedTrackers = UserDefaults.standard.integer(forKey: "completedTrackers")
+        return completedTrackers
     }
     
     private func clean() {

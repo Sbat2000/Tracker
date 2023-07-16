@@ -56,10 +56,6 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupVCs() {
-//        tabBar.layer.borderColor = Resources.Colors.tabBarBorderColor!.cgColor
-//        tabBar.layer.borderWidth = 1
-//        tabBar.layer.masksToBounds = true
-
         let trackersViewController = TrackersViewController()
         let statsViewController = StatsViewController()
         self.trackersViewController = trackersViewController
