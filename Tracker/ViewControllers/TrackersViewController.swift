@@ -11,13 +11,15 @@ final class TrackersViewController: UIViewController {
     private var query: String = ""
     var datePicker: UIDatePicker?
     private var completedTrackers: Set<TrackerRecord> = []
-
+    
     private lazy var categories: [TrackerCategory] = []
     private lazy var visibleCategories = [TrackerCategory]()
     
     lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
-        searchTextField.placeholder = NSLocalizedString("trackers.searchTextField.placeholder", comment: "")
+        searchTextField.attributedPlaceholder = NSAttributedString(
+            string: NSLocalizedString("trackers.searchTextField.placeholder", comment: ""),
+            attributes: [NSAttributedString.Key.foregroundColor: Resources.Colors.searchBarTextColor])
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.clearButtonMode = .never
         return searchTextField
@@ -49,7 +51,7 @@ final class TrackersViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
-        label.textColor = .blackDay
+        label.textColor = Resources.Colors.ypBlack
         label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
         return label
     }()
@@ -83,7 +85,7 @@ final class TrackersViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
-        
+    
     private func setupSearchContainerView() {
         searchContainerView.addArrangedSubview(searchTextField)
         searchContainerView.addArrangedSubview(cancelButton)
@@ -204,9 +206,6 @@ final class TrackersViewController: UIViewController {
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
         let count = completedTrackers.filter { $0.id == trackerID }.count
-//        var text: String
-//        text = count.days()
-//        return("\(text)")
         return String.localizedStringWithFormat(NSLocalizedString("completedTrackers", comment: ""), count)
     }
     
@@ -255,7 +254,7 @@ extension TrackersViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         visibleCategories.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         visibleCategories[section].trackers.count
     }
@@ -305,7 +304,7 @@ extension TrackersViewController: DataProviderDelegate {
         categories = newCategory
         updateVisibleCategories(categories)
     }
-
+    
     func addTrackers() {
         updateVisibleCategories(categories)
         filtered()
@@ -334,7 +333,7 @@ extension TrackersViewController: UITextFieldDelegate {
             self.view.layoutIfNeeded()
         }
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.3) {
             self.cancelButton.isHidden = true
@@ -445,9 +444,9 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
     }
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-         guard let cell = interaction.view as? UICollectionViewCell else {
-             return nil
-         }
+        guard let cell = interaction.view as? UICollectionViewCell else {
+            return nil
+        }
         
         let highlightedArea = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height - 61)
         let cornerRadius: CGFloat = 16.0
