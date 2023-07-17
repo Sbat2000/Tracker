@@ -1,36 +1,19 @@
-//
-//  TrackerTests.swift
-//  TrackerTests
-//
-//  Created by Aleksandr Garipov on 20.05.2023.
-//
+
 
 import XCTest
+import SnapshotTesting
 @testable import Tracker
+//во время первого теста необходимо поменять ключ "record" на true, тест провалиться, это нормально, дальше меняем на false и прогоняем тесты. Если добавляем/меняем трекеры, то надо заново перезаписать скриншот.
 
 final class TrackerTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testMainVCLight() {
+        let vc = TrackersViewController()
+        assertSnapshots(matching: vc, as: [.image(traits: .init(userInterfaceStyle: .light))], record: false)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testMainVCDark() {
+        let vc = TrackersViewController()
+        assertSnapshots(matching: vc, as: [.image(traits: .init(userInterfaceStyle: .dark))], record: false)
     }
 
 }

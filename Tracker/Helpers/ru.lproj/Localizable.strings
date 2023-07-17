@@ -45,3 +45,6 @@
 "contextMenu.unpin" = "Открепить";
 "contextMenu.edit" = "Редактировать";
 "contextMenu.delete" = "Удалить";
+"deleteAlert.text" = "Уверены что хотите удалить трекер?";
+"deleteAlert.cancelAction.text" = "Отмена";
+"deleteAlert.deleteAction.text" = "Удалить";

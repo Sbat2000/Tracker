@@ -45,3 +45,6 @@
 "contextMenu.unpin" = "Unpin";
 "contextMenu.edit" = "Edit";
 "contextMenu.delete" = "Delete";
+"deleteAlert.text" = "Are you sure you want to delete the tracker?";
+"deleteAlert.cancelAction.text" = "Cancel";
+"deleteAlert.deleteAction.text" = "Delete";

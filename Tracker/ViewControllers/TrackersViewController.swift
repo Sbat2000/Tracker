@@ -451,7 +451,7 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
             }
             let deleteAction = UIAction(title: NSLocalizedString("contextMenu.delete", comment: ""), image: nil, identifier: nil) { _ in
                 self.analyticsService.report(event: .click, screen: .main, item: .delete)
-                self.deleteTracker(at: indexPath)
+                self.showDeleteAlert(at: indexPath)
             }
             deleteAction.attributes = .destructive
             let menu = UIMenu(title: "", children: [pickAction, editAction, deleteAction])
@@ -501,5 +501,19 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         
         dataProvider.deleteTracker(model: tracker)
         filtered()
+    }
+    
+    private func showDeleteAlert(at indexPath: IndexPath) {
+        let alert = UIAlertController(title: nil,
+                                      message: NSLocalizedString("deleteAlert.text", comment: ""),
+                                      preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("deleteAlert.cancelAction.text", comment: ""), style: .cancel)
+        let deleteAction = UIAlertAction(title: NSLocalizedString("deleteAlert.deleteAction.text", comment: ""), style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            self.deleteTracker(at: indexPath)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        present(alert, animated: true)
     }
 }

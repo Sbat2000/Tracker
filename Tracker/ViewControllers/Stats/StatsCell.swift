@@ -24,8 +24,20 @@ final class StatsCell: UITableViewCell {
         setupLayout()
     }
     
-    private func setupUI() {
+    func setupGradient() {
         backgroundColor = .white
+        layer.cornerRadius = 16
+        let gradient = UIImage.gradientImage(bounds: layer.bounds, colors: [
+            UIColor(hexString: "#FD4C49"),
+            UIColor(hexString: "#46E69D"),
+            UIColor(hexString: "#007BFA")]
+        )
+        let gradientColor = UIColor(patternImage: gradient)
+        layer.borderWidth = 1
+        layer.borderColor = gradientColor.cgColor
+    }
+    
+    private func setupUI() {
         addSubview(countLabel)
         addSubview(headerLabel)
     }
@@ -41,6 +53,8 @@ final class StatsCell: UITableViewCell {
             headerLabel.trailingAnchor.constraint(equalTo: countLabel.trailingAnchor),
             headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
