@@ -10,6 +10,7 @@ import UIKit
 final class TabBarController: UITabBarController {
     
     private var trackersViewController: TrackersViewController?
+    private lazy var analyticsService = AnalyticsService()
     
     private let separatorView: UIView = {
         let view = UIView()
@@ -77,6 +78,7 @@ final class TabBarController: UITabBarController {
     
     @objc
     private func leftButtonTapped() {
+        analyticsService.report(event: .click, screen: .main, item: .addTrack)
         trackersViewController?.presentSelectTypeVC()
     }
     

@@ -35,6 +35,8 @@
 		E23A8B5E2A5FF0DD0015AA37 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E23A8B602A5FF0DD0015AA37 /* Localizable.stringsdict */; };
 		E2592CBB2A640E8900AD3FEF /* StatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2592CBA2A640E8900AD3FEF /* StatsCell.swift */; };
 		E2592CBD2A641D5A00AD3FEF /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2592CBC2A641D5A00AD3FEF /* StatsViewModel.swift */; };
+		E2592CBF2A64376700AD3FEF /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2592CBE2A64376700AD3FEF /* AnalyticsService.swift */; };
+		E2592CC22A6503AD00AD3FEF /* EditTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2592CC12A6503AD00AD3FEF /* EditTrackerViewController.swift */; };
 		E285658B2A21D8210085A301 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658A2A21D8210085A301 /* CategoryViewController.swift */; };
 		E285658D2A21DAF00085A301 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658C2A21DAF00085A301 /* CategoryCell.swift */; };
 		E285658F2A21E1E90085A301 /* PlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285658E2A21E1E90085A301 /* PlaceholderCell.swift */; };
@@ -135,6 +137,8 @@
 		E23A8B612A5FF0FA0015AA37 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E2592CBA2A640E8900AD3FEF /* StatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCell.swift; sourceTree = "<group>"; };
 		E2592CBC2A641D5A00AD3FEF /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		E2592CBE2A64376700AD3FEF /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		E2592CC12A6503AD00AD3FEF /* EditTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackerViewController.swift; sourceTree = "<group>"; };
 		E285658A2A21D8210085A301 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		E285658C2A21DAF00085A301 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		E285658E2A21E1E90085A301 /* PlaceholderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderCell.swift; sourceTree = "<group>"; };
@@ -219,7 +223,6 @@
 				D3096DA414298A9826F02B96 /* Pods-TrackerTests.debug.xcconfig */,
 				DF061BB2BFE11E5DF13309AB /* Pods-TrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -336,6 +339,7 @@
 				E29580652A1E2ED10000475E /* RoundedButtonClass.swift */,
 				E23A8B5A2A5FC2A00015AA37 /* Localizable.strings */,
 				E23A8B602A5FF0DD0015AA37 /* Localizable.stringsdict */,
+				E2592CBE2A64376700AD3FEF /* AnalyticsService.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -358,6 +362,14 @@
 				E2592CBC2A641D5A00AD3FEF /* StatsViewModel.swift */,
 			);
 			path = Stats;
+			sourceTree = "<group>";
+		};
+		E2592CC02A65038500AD3FEF /* Edit Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				E2592CC12A6503AD00AD3FEF /* EditTrackerViewController.swift */,
+			);
+			path = "Edit Tracker";
 			sourceTree = "<group>";
 		};
 		E28565962A230F950085A301 /* Cells */ = {
@@ -387,6 +399,7 @@
 		E29580742A2054180000475E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E2592CC02A65038500AD3FEF /* Edit Tracker */,
 				E2592CB92A640E3700AD3FEF /* Stats */,
 				E2B3618B2A510E1400B22289 /* CreateCategory */,
 				E2B361862A504CAD00B22289 /* Category */,
@@ -692,8 +705,10 @@
 				E2187CFE2A18F8F4004191C8 /* AppDelegate.swift in Sources */,
 				E2B3618D2A510E3C00B22289 /* CreateCategoryViewController.swift in Sources */,
 				E29580662A1E2ED10000475E /* RoundedButtonClass.swift in Sources */,
+				E2592CBF2A64376700AD3FEF /* AnalyticsService.swift in Sources */,
 				E285659C2A2323B20085A301 /* CategoryViewControllerDelegate.swift in Sources */,
 				E2187D002A18F8F4004191C8 /* SceneDelegate.swift in Sources */,
+				E2592CC22A6503AD00AD3FEF /* EditTrackerViewController.swift in Sources */,
 				E2187DF82A1C6D9F004191C8 /* Resources.swift in Sources */,
 				E295806D2A1F07DD0000475E /* TrackerCategory.swift in Sources */,
 				E285658B2A21D8210085A301 /* CategoryViewController.swift in Sources */,

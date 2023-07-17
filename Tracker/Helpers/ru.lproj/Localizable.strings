@@ -39,3 +39,9 @@
 "tabBar.trackers.title" = "Трекеры";
 "tabBar.stats.title" = "Статистика";
 "stats.placeHolder.title" = "Анализировать пока нечего";
+"editTacker.saveButtonTitle" = "Сохранить";
+"createTracker.title" = "Редактирование привычки";
+"contextMenu.pin" = "Закрепить";
+"contextMenu.unpin" = "Открепить";
+"contextMenu.edit" = "Редактировать";
+"contextMenu.delete" = "Удалить";

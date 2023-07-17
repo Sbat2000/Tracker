@@ -16,7 +16,7 @@ final class DataProvider {
     @Observable
     var category: String = "Важное"
     var title = ""
-    private var schedule: [Int] = []
+    var schedule: [Int] = []
     
     private var visibleCategories: [TrackerCategory]?
     private var completedTrackers: [TrackerRecord]?
@@ -89,6 +89,19 @@ final class DataProvider {
     
     func pinTracker(model: Tracker) {
         trackerStore.pinTacker(model: model)
+    }
+    //TODO: - переделать на нормальное редактирование
+    func updateTracker(model: Tracker) {
+        trackerStore.deleteTacker(model: model)
+        let tracker = Tracker(id: model.id,
+                              name: title,
+                              color: self.color,
+                              emoji: emoji,
+                              schedule: schedule,
+                              pinned: false)
+        trackerStore.addTracker(model: tracker)
+        delegate?.addTrackers()
+        clean()
     }
     
     //MARK: - trackerCategoryStore

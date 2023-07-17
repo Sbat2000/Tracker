@@ -39,3 +39,9 @@
 "tabBar.trackers.title" = "Trackers";
 "tabBar.stats.title" = "Statistics";
 "stats.placeHolder.title" = "Nothing to analyze";
+"editTacker.saveButtonTitle" = "Save";
+"createTracker.title" = "Editing a Habit";
+"contextMenu.pin" = "Pin";
+"contextMenu.unpin" = "Unpin";
+"contextMenu.edit" = "Edit";
+"contextMenu.delete" = "Delete";

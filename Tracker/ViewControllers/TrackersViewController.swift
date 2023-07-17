@@ -14,6 +14,7 @@ final class TrackersViewController: UIViewController {
     
     private lazy var categories: [TrackerCategory] = []
     private lazy var visibleCategories = [TrackerCategory]()
+    private lazy var analyticsService = AnalyticsService()
     
     lazy var searchTextField: UISearchTextField = {
         let searchTextField = UISearchTextField()
@@ -79,6 +80,16 @@ final class TrackersViewController: UIViewController {
         setupCell()
         setupLayout()
         setupDatePicker()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        analyticsService.reportScreen(event: .open, onScreen: .main)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.reportScreen(event: .close, onScreen: .main)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -202,6 +213,7 @@ final class TrackersViewController: UIViewController {
             DataProvider.shared.addRecord(trackerRecord)
         }
         cell.counterTextLabel.text = setupCounterTextLabel(trackerID: tracker.id)
+        analyticsService.report(event: .click, screen: .main, item: .track)
     }
     
     private func setupCounterTextLabel(trackerID: UUID) -> String {
@@ -232,7 +244,6 @@ final class TrackersViewController: UIViewController {
             label.text = NSLocalizedString("trackers.notFoundPlaceholder.title", comment: "")
         }
     }
-    
     
     private func updateCollectionViewVisibility() {
         let hasData = !visibleCategories.isEmpty
@@ -428,17 +439,22 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         }
         let category = visibleCategories[indexPath.section]
         let tracker = category.trackers[indexPath.item]
-        let pinTitle = tracker.pinned ? "Открепить" : "Закрепить"
+        let pinTitle = tracker.pinned ? NSLocalizedString("contextMenu.unpin", comment: "") : NSLocalizedString("contextMenu.pin", comment: "")
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
             
             let pickAction = UIAction(title: pinTitle, image: nil, identifier: nil) { _ in
                 self.pinTracker(at: indexPath)
             }
-            let deleteAction = UIAction(title: "Удалить", image: nil, identifier: nil) { _ in
+            let editAction = UIAction(title: NSLocalizedString("contextMenu.edit", comment: ""), image: nil, identifier: nil) { _ in
+                self.analyticsService.report(event: .click, screen: .main, item: .edit)
+                self.editTracker(at: indexPath)
+            }
+            let deleteAction = UIAction(title: NSLocalizedString("contextMenu.delete", comment: ""), image: nil, identifier: nil) { _ in
+                self.analyticsService.report(event: .click, screen: .main, item: .delete)
                 self.deleteTracker(at: indexPath)
             }
             deleteAction.attributes = .destructive
-            let menu = UIMenu(title: "", children: [pickAction, deleteAction])
+            let menu = UIMenu(title: "", children: [pickAction, editAction, deleteAction])
             return menu
         }
     }
@@ -456,6 +472,18 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         
         let targetedPreview = UITargetedPreview(view: cell, parameters: parameters)
         return targetedPreview
+    }
+    
+    private func editTracker(at indexPath: IndexPath) {
+        let category = visibleCategories[indexPath.section]
+        let tracker = category.trackers[indexPath.item]
+        let isEvent = tracker.schedule.isEmpty
+        let counterText = setupCounterTextLabel(trackerID: tracker.id)
+        present(EditTrackerViewController(
+            type: isEvent ? .event : .habits,
+            tracker: tracker,
+            counterHeaderText: counterText,
+            category: category.header), animated: true)
     }
     
     private func pinTracker(at indexPath: IndexPath) {
