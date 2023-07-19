@@ -46,6 +46,9 @@ final class TabBarController: UITabBarController {
             
             let datePicker = UIDatePicker()
             datePicker.backgroundColor = Resources.Colors.datePickerBackgroundColor
+            datePicker.overrideUserInterfaceStyle = .light
+            datePicker.layer.cornerRadius = 8
+            datePicker.layer.masksToBounds = true
             datePicker.preferredDatePickerStyle = .compact
             datePicker.datePickerMode = .date
             let datePickerItem = UIBarButtonItem(customView: datePicker)
