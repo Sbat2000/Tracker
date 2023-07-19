@@ -191,7 +191,7 @@ final class TrackersViewController: UIViewController {
         }()
         day = weekday
         filtered()
-        setupPlaceHolder()
+        setupStandardPlaceholder()
     }
     
     @objc
@@ -236,6 +236,11 @@ final class TrackersViewController: UIViewController {
         visibleCategories = newCategory
         trackersCollectionView.reloadData()
         updateCollectionViewVisibility()
+    }
+    
+    private func setupStandardPlaceholder() {
+        placeholder.image = .placeHolder
+        label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
     }
     
     private func setupPlaceHolder() {
