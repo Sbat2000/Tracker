@@ -8,7 +8,11 @@ final class TrackersViewController: UIViewController {
     private var currentDate = Date()
     private let todayDate = Date()
     private var day = 1
-    private var query: String = ""
+    private var query: String = "" {
+        didSet {
+            setupStandardPlaceholder()
+        }
+    }
     var datePicker: UIDatePicker?
     private var completedTrackers: Set<TrackerRecord> = []
     
@@ -239,8 +243,12 @@ final class TrackersViewController: UIViewController {
     }
     
     private func setupStandardPlaceholder() {
-        placeholder.image = .placeHolder
-        label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
+        if searchTextField.text == "" {
+            placeholder.image = .placeHolder
+            label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
+        } else {
+            setupPlaceHolder()
+        }
     }
     
     private func setupPlaceHolder() {
@@ -340,10 +348,10 @@ extension TrackersViewController: UITextFieldDelegate {
         guard let queryTextFiled = textField.text else { return }
         query = queryTextFiled
         filtered()
-        setupPlaceHolder()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        setupStandardPlaceholder()
         UIView.animate(withDuration: 0.3) {
             self.cancelButton.isHidden = false
             self.view.layoutIfNeeded()
@@ -355,10 +363,6 @@ extension TrackersViewController: UITextFieldDelegate {
             self.cancelButton.isHidden = true
             self.view.layoutIfNeeded()
             
-        }
-        if categories.isEmpty {
-            placeholder.image = .placeHolder
-            label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
         }
     }
     
