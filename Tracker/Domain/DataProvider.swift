@@ -16,7 +16,7 @@ final class DataProvider {
     @Observable
     var category: String = "Важное"
     var title = ""
-    private var schedule: [Int] = []
+    var schedule: [Int] = []
     
     private var visibleCategories: [TrackerCategory]?
     private var completedTrackers: [TrackerRecord]?
@@ -42,7 +42,13 @@ final class DataProvider {
                                     .colorSection17,
                                     .colorSection18,]
     
-    private let shortDayArray = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+   private let shortDayArray = [NSLocalizedString("mo", comment: ""),
+                                NSLocalizedString("tu", comment: ""),
+                                NSLocalizedString("we", comment: ""),
+                                NSLocalizedString("th", comment: ""),
+                                NSLocalizedString("fr", comment: ""),
+                                NSLocalizedString("sa", comment: ""),
+                                NSLocalizedString("su", comment: "")]
     
     func updateCategories() {
         let category = trackerStore.fetchTrackers()
@@ -70,11 +76,35 @@ final class DataProvider {
                               name: title,
                               color: self.color,
                               emoji: emoji,
-                              schedule: schedule)
+                              schedule: schedule,
+                              pinned: false)
         trackerStore.addTracker(model: tracker)
         delegate?.addTrackers()
         clean()
     }
+    
+    func deleteTracker(model: Tracker) {
+        trackerStore.deleteTacker(model: model)
+    }
+    
+    func pinTracker(model: Tracker) {
+        trackerStore.pinTacker(model: model)
+    }
+    //TODO: - переделать на нормальное редактирование
+    func updateTracker(model: Tracker) {
+        trackerStore.deleteTacker(model: model)
+        let tracker = Tracker(id: model.id,
+                              name: title,
+                              color: self.color,
+                              emoji: emoji,
+                              schedule: schedule,
+                              pinned: false)
+        trackerStore.addTracker(model: tracker)
+        delegate?.addTrackers()
+        clean()
+    }
+    
+    //MARK: - trackerCategoryStore
     
     func addCategory(header: String) {
         trackerCategoryStore.addCategory(header: header)
@@ -100,6 +130,10 @@ final class DataProvider {
         }
     }
     
+    func deleteCategory(at header: String) {
+        trackerCategoryStore.deleteCategory(at: header)
+    }
+    
     //MARK: - TreckerRecord
     
     func updateRecords() {
@@ -109,10 +143,16 @@ final class DataProvider {
     
     func addRecord(_ record: TrackerRecord) {
         trackerRecordStore.addTrackerRecord(record)
+        let currentCount = UserDefaults.standard.integer(forKey: "completedTrackers")
+        let newCount = currentCount + 1
+        UserDefaults.standard.set(newCount, forKey: "completedTrackers")
     }
     
     func deleteRecord(_ record: TrackerRecord) {
         trackerRecordStore.deleteTrackerRecord(record)
+        let currentCount = UserDefaults.standard.integer(forKey: "completedTrackers")
+            let newCount = max(currentCount - 1, 0)
+            UserDefaults.standard.set(newCount, forKey: "completedTrackers")
     }
     
     func getFormattedSchedule() -> String? {
@@ -122,6 +162,11 @@ final class DataProvider {
         
         let days = schedule.map { shortDayArray[$0 - 1] }
         return days.joined(separator: ", ")
+    }
+    
+    func getCompletedTrackers() -> Int {
+        let completedTrackers = UserDefaults.standard.integer(forKey: "completedTrackers")
+        return completedTrackers
     }
     
     private func clean() {

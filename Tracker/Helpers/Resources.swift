@@ -8,6 +8,13 @@ enum Resources {
         static let ypBlue = UIColor(hexString: "#3772E7")
         static let ypGray = UIColor(hexString: "#E6E8EB")
         static let ypWhite = UIColor(hexString: "#FFFFFF")
+        static let ypBlackDay = UIColor(hexString: "#1A1B22")
+        static let datePickerBackgroundColor = UIColor(hexString: "#F0F0F0")
+        static let datePickerTextColor = UIColor(hexString: "#1A1B22")
+        static let ypBlack = UIColor(named: "Black")
+        static let searchBarTextColor = UIColor(named: "Search bar text")
+        static let tabBarBorderColor = UIColor(named: "TabBar border color")
+
         
         enum Sections {
             static let colorSection1 = UIColor(hexString: "#FD4C49")

@@ -48,5 +48,4 @@ extension UIColor {
     static let colorSection16 = UIColor(hexString: "#AD56DA")
     static let colorSection17 = UIColor(hexString: "#8D72E6")
     static let colorSection18 = UIColor(hexString: "#2FD058")
-    
 }

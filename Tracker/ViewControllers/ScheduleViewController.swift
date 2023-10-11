@@ -9,7 +9,14 @@ import UIKit
 
 final class ScheduleViewController: UIViewController {
     
-    private let dayArray = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+    private let dayArray = [NSLocalizedString("monday", comment: ""),
+                            NSLocalizedString("tuesday", comment: ""),
+                            NSLocalizedString("wednesday", comment: ""),
+                            NSLocalizedString("thursday", comment: ""),
+                            NSLocalizedString("friday", comment: ""),
+                            NSLocalizedString("saturday", comment: ""),
+                            NSLocalizedString("sunday", comment: "")
+    ]
     
 
     weak var delegate: ScheduleViewControllerDelegate?

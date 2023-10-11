@@ -33,7 +33,6 @@ final class CreateCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupLayout()
-        
     }
     
     private func setupUI() {

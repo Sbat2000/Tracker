@@ -1,6 +1,6 @@
 import UIKit
 
-final class CreateTrackerViewController: UIViewController {
+class CreateTrackerViewController: UIViewController {
     
     private let dataProvider = DataProvider.shared
     private var arrayOfButtons: [String] {
@@ -17,8 +17,9 @@ final class CreateTrackerViewController: UIViewController {
         
         var arrayOfButtons: [String] {
             switch self {
-            case .habits: return ["Категория", "Расписание"]
-            case .event: return ["Категория"]
+            case .habits: return [NSLocalizedString("createTracker.button.category", comment: ""),
+                                  NSLocalizedString("createTracker.button.schedule", comment: "")]
+            case .event: return [NSLocalizedString("createTracker.button.category", comment: "")]
             }
         }
     }
@@ -35,7 +36,7 @@ final class CreateTrackerViewController: UIViewController {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Новая привычка"
+        label.text = NSLocalizedString("createTracker.title", comment: "")
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
@@ -54,7 +55,7 @@ final class CreateTrackerViewController: UIViewController {
         textField.textColor = .blackDay
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
         textField.leftViewMode = .always
-        textField.placeholder = "Введите название трекера"
+        textField.placeholder = NSLocalizedString("createTracker.textField.placeholder", comment: "placeholder textfield")
         textField.layer.cornerRadius = 16
         return textField
     }()
@@ -71,7 +72,7 @@ final class CreateTrackerViewController: UIViewController {
     private lazy var emojiesCollectionViewHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Emoji"
+        label.text = NSLocalizedString("createTracker.emojiTitle", comment: "")
         label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         return label
     }()
@@ -89,7 +90,7 @@ final class CreateTrackerViewController: UIViewController {
     private lazy var colorsCollectionViewHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Цвет"
+        label.text = NSLocalizedString("createTracker.colorTitle", comment: "")
         label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         return label
     }()
@@ -111,7 +112,7 @@ final class CreateTrackerViewController: UIViewController {
         button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.ypRed.cgColor
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(NSLocalizedString("createTracker.cancelButtonTitle", comment: ""), for: .normal)
         button.setTitleColor(.ypRed, for: .normal)
         button.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
         return button
@@ -122,7 +123,7 @@ final class CreateTrackerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
         button.backgroundColor = .ypGray
-        button.setTitle("Создать", for: .normal)
+        button.setTitle(NSLocalizedString("createTracker.createButtonTitle", comment: ""), for: .normal)
         button.setTitleColor(.whiteDay
                              , for: .normal)
         button.addTarget(self, action: #selector(createButtonPressed), for: .touchUpInside)

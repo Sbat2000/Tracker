@@ -13,7 +13,8 @@ final class CategoryViewController: UIViewController {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Категория"
+        let title = NSLocalizedString("category.title", comment: "")
+        label.text = title
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
@@ -24,7 +25,8 @@ final class CategoryViewController: UIViewController {
         button.layer.cornerRadius = 16
         button.backgroundColor = .blackDay
         button.setTitleColor(.whiteDay, for: .normal)
-        button.setTitle("Добавить категорию", for: .normal)
+        let title = NSLocalizedString("category.addButton.title", comment: "")
+        button.setTitle(title, for: .normal)
         button.addTarget(self, action: #selector(addCategoryButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -78,6 +80,9 @@ final class CategoryViewController: UIViewController {
         bind()
     }
     
+    private func deleteCategory(at indexPath: IndexPath) {
+        categoryViewModel.deleteCategory(at: indexPath)
+    }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -113,7 +118,22 @@ final class CategoryViewController: UIViewController {
 }
 
 extension CategoryViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard indexPath.count > 0 else { return nil }
+        
+        let deleteAction = UIAction(title: "Удалить", image: nil, identifier: nil) { _ in
+            self.deleteCategory(at: indexPath)
+        }
+        
+        deleteAction.attributes = .destructive
+        
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            let menu = UIMenu(title: "", children: [deleteAction])
+            return menu
+        }
+        
+        return configuration
+    }
 }
 
 extension CategoryViewController: UITableViewDataSource {
@@ -156,3 +176,5 @@ extension CategoryViewController: CreateCategoryViewModelDelegate {
         categoryViewModel.updateData()
     }
 }
+
+

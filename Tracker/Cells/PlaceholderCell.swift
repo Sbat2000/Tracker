@@ -21,7 +21,7 @@ final class PlaceholderCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
         label.textColor = .blackDay
-        label.text = "Что будем отслеживать?"
+        label.text = NSLocalizedString("placeholder.title", comment: "placeholder title")
         return label
     }()
 
